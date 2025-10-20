@@ -1,12 +1,13 @@
 #include "Entity.h"
 
-Entity::Entity(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale)
+Entity::Entity(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type)
 {
 	healthPoints_ = healthPoint;
 	damage_ = damage;
 	animation_.Load(spritesPath, animSpeed);
 	textureSize_ = {0,0};
 	spriteScale_ = spriteScale;
+	type_ = type;
 }
 
 void Entity::Load(ProjectileManager* projectileManager)

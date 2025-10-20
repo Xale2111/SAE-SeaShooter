@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+using namespace sf;
+
 class Enemy : public Entity
 {
 private:
@@ -14,7 +16,7 @@ private:
 	float speed_;
 
 public:
-	Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed);
+	Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale,EntityType type,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed);
 	void Shoot();
 	void Move();
 	void SetPosition(Vector2f newPosition);

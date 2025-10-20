@@ -1,7 +1,7 @@
 #include "Enemy.h"
 
-Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed)
-: Entity(spritesPath, animSpeed, healthPoint, damage, spriteScale), shootingDelay_(shootingDelay), shootingAmount_(shootingAmount), pointValue_(pointValue), direction_(direction),speed_(speed)
+Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed)
+: Entity(spritesPath, animSpeed, healthPoint, damage, spriteScale, type), shootingDelay_(shootingDelay), shootingAmount_(shootingAmount), pointValue_(pointValue), direction_(direction),speed_(speed)
 {
 	shootingDelay_ = shootingDelay;
 	shootingAmount_ = shootingAmount;
@@ -18,7 +18,7 @@ void Enemy::Shoot()
 		shootingClock_.restart();
 		for (int i = 0; i < shootingAmount_; ++i)
 		{
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y - GetTextureSize().y / 2 }, { 0,1 });
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_);
 		}
 	}
 }
@@ -27,7 +27,7 @@ void Enemy::Move()
 {
 	deltaTime = movingClock_.restart();
 	Vector2f newPosition{getPosition()};
-	if (direction_.length() >0)
+	if (direction_.length() >0 && getPosition().y <500)
 	{
 		newPosition = getPosition() + direction_.normalized() * speed_ * deltaTime.asSeconds();
 	}

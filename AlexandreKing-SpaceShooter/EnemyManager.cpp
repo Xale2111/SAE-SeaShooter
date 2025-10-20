@@ -1,10 +1,112 @@
 #include "EnemyManager.h"
 
+constexpr float winWidth = 1920;
+constexpr int winHeight = 1080;
+
+void EnemyManager::SetEnemyWaveEasy()
+{
+	//Define the wave
+	//segment 1
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kSingleMiddle }, 1));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kSingleLeft }, 1));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kSingleRight }, 1));
+
+	//segment 2
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleMiddle }, 3));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kDuoLeft }, 2));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kDuoLeft }, 0));
+
+	//segment 3
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kBigTriangleMiddle }, 5));
+
+	//segment 4
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleLeft }, 3));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleRight }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kDuoMiddle },0));
+
+	//segment 5
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kDuoMiddle }, 5));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleLeft }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleRight }, 0));
+
+	//segment 6
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ hardEnemy_, EnemyFormation::kSingleMiddle }, 7.5f));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kSingleRight }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kSingleLeft }, 0));
+
+	//segment 7
+
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kTriangleMiddle }, 7.5f));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kTriangleLeft }, 1));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kTriangleRight }, 0));
+
+	//segment 8
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kBigTriangleMiddle }, 5));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kBigTriangleLeft }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ easyEnemy_, EnemyFormation::kBigTriangleRight }, 0));
+
+	//segment 9
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ hardEnemy_, EnemyFormation::kDuoMiddle }, 5));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleRight }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kSingleLeft }, 0));
+
+	//segment 10
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kDuoMiddle }, 10));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kDuoLeft }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kDuoRight }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ mediumEnemy_, EnemyFormation::kBigTriangleMiddle }, 10));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ hardEnemy_, EnemyFormation::kSingleLeft }, 0));
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ hardEnemy_, EnemyFormation::kSingleRight }, 0));
+
+	//segment 11
+	enemyWavePrediction.emplace_back(std::pair<std::pair<Enemy*, EnemyFormation>, float>({ hardcoreEnemy_, EnemyFormation::kSingleMiddle }, 15));
+
+}
+
+void EnemyManager::SetEnemyWaveMedium()
+{
+}
+
+void EnemyManager::SetEnemyWaveHard()
+{
+}
+
+//PRIVATE
+void EnemyManager::SetEnemyWaveHardcore()
+{
+}
+
+
+//PUBLIC
+
+void EnemyManager::SetAllWaves()
+{
+	SetEnemyWaveEasy();
+	SetEnemyWaveMedium();
+	SetEnemyWaveHard();
+	SetEnemyWaveHardcore();
+
+}
 
 void EnemyManager::Spawn()
 {
-	//enemyWavePrediction[0];
+	//spawn the next wave segment if the defined delay is greater the current elapsed time
+	if (enemyWavePrediction.size() > 0)
+	{
+		waveDelay += clock_.restart();
+		if (waveDelay.asSeconds() >= enemyWavePrediction[currentWaveIndex_].second)
+		{
+			auto currentWave = enemyWavePrediction[currentWaveIndex_].first;
+			int width = winWidth;
+			AddEnemy(currentWave.first, { (float)(rand() % width),-100 });
 
+			waveDelay = milliseconds(0);
+			currentWaveIndex_++;
+
+		}
+		//TODO : add enemy with pattern based on formation
+		
+	}
 }
 
 void EnemyManager::DefineEnemies(Enemy* easyEnemy, Enemy* mediumEnemy, Enemy* hardEnemy, Enemy* hardcoreEnemy)
@@ -15,73 +117,20 @@ void EnemyManager::DefineEnemies(Enemy* easyEnemy, Enemy* mediumEnemy, Enemy* ha
 	hardcoreEnemy_ = hardcoreEnemy;
 }
 
-void EnemyManager::AddEnemy(int chooseEnemy)
+
+void EnemyManager::AddEnemy(Enemy* enemy,Vector2f startPosition)
 {
-	int randEnemy = chooseEnemy;
-
-	if (chooseEnemy < 0)
-	{
-		randEnemy = rand() % 4;
-	}
-	Enemy* newEnemy = easyEnemy_;
-
-
-	switch (randEnemy)
-	{
-	case 0:
-		newEnemy = easyEnemy_;
-		break;
-
-	case 1:
-		newEnemy = mediumEnemy_;
-		break;
-
-	case 2:
-		newEnemy = hardEnemy_;
-		break;
-
-	case 3:
-		newEnemy = hardcoreEnemy_;
-		break;
-
-	default:
-		newEnemy = easyEnemy_;
-		break;
-	}
-
-	float positionX = rand() % 1920;
-	Vector2f direction(0,1);
-	Angle directionAngle;
-	newEnemy->SetPosition({positionX,-50});
-	if (positionX <300)
-	{
-		directionAngle =degrees(-45);
-		direction.x = 1;
-	}
-	else if (positionX >1620)
-	{
-		directionAngle = degrees(45);
-		direction.x = -1;
-	}
-	else
-	{
-		directionAngle = degrees(0);
-	}
-	newEnemy->SetDirection(direction);
-	newEnemy->rotate(directionAngle);
-	
+	Enemy newEnemy = *enemy;
+	newEnemy.SetDirection({ 0,1 });
+	newEnemy.SetPosition(startPosition);	
 
 	allEnemies_.emplace_back(newEnemy);
 
 }
 
-std::vector<Enemy*> EnemyManager::GetAllEnemies()
+std::vector<Enemy>& EnemyManager::GetAllEnemies()
 {
 	return allEnemies_;
 }
 
-void EnemyManager::SetEnemyWaveEasy()
-{
-	//Define the waves 
-	enemyWavePrediction.insert(std::pair<Enemy,EnemyFormation>(*easyEnemy_, EnemyFormation::SingleMiddle));
-}
+

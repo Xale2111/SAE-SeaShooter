@@ -1,30 +1,32 @@
 #pragma once
 #include "Enemy.h"
+#include "Player.h"
 
 const std::string enemiesSpritesPath = "assets/sprites/enemy/";
 
 enum class EnemyFormation
 {
-	SingleLeft,			//1 unit from top left
-	SingleMiddle,		//1 unit from top middle
-	SingleRight,		//1 unit from top right
-	DuoLeft,			//2 units from top left
-	DuoMiddle,			//2 units from top middle
-	DuoRight,			//2 units from top right
-	TriangleLeft,		//3 units from top left
-	TriangleMiddle,		//3 units from top middle
-	TriangleRight,		//3 units from top right
-	BigTriangleLeft,	//5 units from top left
-	BigTriangleMiddle,	//5 units from top middle
-	BigTriangleRight	//5 units from top right
+	kSingleLeft,			//1 unit from top left
+	kSingleMiddle,		//1 unit from top middle
+	kSingleRight,		//1 unit from top right
+	kDuoLeft,			//2 units from top left
+	kDuoMiddle,			//2 units from top middle
+	kDuoRight,			//2 units from top right
+	kTriangleLeft,		//3 units from top left
+	kTriangleMiddle,		//3 units from top middle
+	kTriangleRight,		//3 units from top right
+	kBigTriangleLeft,	//5 units from top left
+	kBigTriangleMiddle,	//5 units from top middle
+	kBigTriangleRight	//5 units from top right
 };
 
 class EnemyManager
 {
 private:
-	std::vector<Enemy*> allEnemies_;
+	std::vector<Enemy> allEnemies_;
 
-	std::unordered_map<Enemy, EnemyFormation> enemyWavePrediction;
+	//first pair = enemy difficulty and formation, float is the delay between two enemy spawning
+	std::vector<std::pair<std::pair<Enemy*, EnemyFormation>,float>> enemyWavePrediction;
 
 	//Create template of enemy (green-> easy, blue-> medium, red-> hard, Yellow-> HARDCORE)
 	Enemy* easyEnemy_;
@@ -34,16 +36,23 @@ private:
 
 	int currentWaveIndex_ = 0;
 
-public:
-	void Spawn();
-	void DefineEnemies(Enemy* easyEnemy, Enemy* mediumEnemy, Enemy* hardEnemy, Enemy* hardcoreEnemy);
-	//Spawn enemy at random possible position
-	void AddEnemy(int chooseEnemy = -1);
-	std::vector<Enemy*> GetAllEnemies();
+	Clock clock_;
+	Time waveDelay;
+
 
 	void SetEnemyWaveEasy();
 	void SetEnemyWaveMedium();
 	void SetEnemyWaveHard();
+	void SetEnemyWaveHardcore();
+
+public:
+	void SetAllWaves();
+	void Spawn();
+	void DefineEnemies(Enemy* easyEnemy, Enemy* mediumEnemy, Enemy* hardEnemy, Enemy* hardcoreEnemy);
+	//Spawn enemy at random possible position
+	void AddEnemy(Enemy* enemy,Vector2f startPosition);
+	std::vector<Enemy>& GetAllEnemies();
+
 
 };
 

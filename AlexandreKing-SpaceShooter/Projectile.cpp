@@ -3,6 +3,7 @@
 void Projectile::Load(std::string spritePath, float speed)
 {
 	animation_.Load(spritePath, 0.05f);
+	CenterOrigin();
 	speed_ = speed;
 }
 
@@ -14,6 +15,23 @@ void Projectile::SetDirection(Vector2f newDirection)
 void Projectile::SetPosition(Vector2f newPosition)
 {
 	position_ = newPosition;
+}
+
+void Projectile::CenterOrigin()
+{
+	if (animation_.GetTexture())
+	{
+		Vector2f newOrigin{
+			static_cast<float>(animation_.GetTexture()->getSize().x) / 2.f,
+			static_cast<float>(animation_.GetTexture()->getSize().y) / 2.f
+		};
+		setOrigin(newOrigin);
+	}
+}
+
+void Projectile::SetRotation(float rotationsDegrees)
+{
+	setRotation(degrees(rotationsDegrees));
 }
 
 Vector2f Projectile::GetPosition()
@@ -34,6 +52,7 @@ ProjectileState Projectile::Move()
 		state_ = ProjectileState::Moving;
 	}
 	Time deltaTime = clock_.restart();
+	
 
 	if (direction_.length() > 0)
 	{

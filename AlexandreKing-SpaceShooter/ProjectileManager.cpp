@@ -1,19 +1,56 @@
 #include "ProjectileManager.h"
-
 #include <iostream>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
-void ProjectileManager::Load(std::string projectileSpritePath)
+void ProjectileManager::Load()
 {
-	playerProjectile_.Load(projectileSpritePath);
+	playerProjectile_.Load(ProjectileSpritesPath + "player");
+	enemyProjectile_.Load(ProjectileSpritesPath+"enemy");
 }
 
 
-void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f projectileDirection)
+void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f projectileDirection, EntityType entityType)
 {
-	Projectile newProjectile(playerProjectile_);
-	newProjectile.SetPosition(projectileStartPosition);
+	Projectile newProjectile;
+	switch (entityType)
+	{
+	case EntityType::kPlayer:
+		newProjectile = playerProjectile_;
+		break;
+	case EntityType::kEasyEnemy:
+	case EntityType::kMediumEnemy:
+	case EntityType::kHardEnemy:
+	case EntityType::kHardcoreEnemy:
+		newProjectile = enemyProjectile_;
+		break;
+	}
+
+
+	newProjectile.CenterOrigin();
+
 	newProjectile.SetDirection(projectileDirection);
+
+	/*Angle directionAngle;
+	if (projectileDirection.x < 0)
+	{
+		directionAngle = degrees(45);
+	}
+	else if (projectileDirection.x > 0)
+	{
+		directionAngle = degrees(-45);
+	}
+	else
+	{
+		directionAngle = degrees(0);
+	}
+	newProjectile.setRotation(directionAngle);*/
+
+
+	newProjectile.SetPosition(projectileStartPosition);
+
     newProjectile.SetID(projectileCounter++);
+
 	allProjectiles_.emplace_back(newProjectile);
 }
 

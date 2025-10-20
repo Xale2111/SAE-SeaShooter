@@ -30,6 +30,8 @@ public:
 	void Load(std::string spritePath, float speed = 350 );
 	void SetDirection(Vector2f newDirection);
 	void SetPosition(Vector2f newPosition);
+	void CenterOrigin();
+	void SetRotation(float rotationsDegrees);
 	Vector2f GetPosition();
 	void AnimationUpdate();
 	ProjectileState Move();

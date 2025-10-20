@@ -10,7 +10,8 @@
 #include "ProjectileManager.h"
 
 constexpr float winFrameRate = 60.f;
-constexpr sf::Vector2f kCharacterSize(100, 100);
+constexpr int winWidth = 1920;
+constexpr int winHeight = 1080;
 
 using namespace sf;
 
@@ -22,13 +23,13 @@ int main()
     AudioManager audio_manager;
     audio_manager.LoadAll();
     ProjectileManager projectileManager;
-    projectileManager.Load("assets/sprites/Laser");
+    projectileManager.Load();
 
     
-    Enemy easyEnemy(enemiesSpritesPath + "easy/", 0.2f, 50, 10, 0.4f, 1, 1, 20, { 0,0 }, 100);
-	Enemy mediumEnemy(enemiesSpritesPath + "medium/", 0.2f, 100, 25, 1, 0.5, 1, 50, { 0,0 }, 110);
-	Enemy hardEnemy(enemiesSpritesPath + "hard/", 0.2f, 200, 35, 0.35f, 0.75, 3, 100, { 0,0 }, 125);
-    Enemy hardcoreEnemy(enemiesSpritesPath + "hardcore/", 0.2f, 500, 50, 1, 0.5, 5, 250, { 0,0 }, 80);
+    Enemy easyEnemy(enemiesSpritesPath + "easy/", 0.2f, 50, 10, 0.4f,EntityType::kEasyEnemy, 1, 1, 20, { 0,0 }, 100);
+	Enemy mediumEnemy(enemiesSpritesPath + "medium/", 0.2f, 100, 25, 1, EntityType::kEasyEnemy, 0.5, 1, 50, { 0,0 }, 110);
+	Enemy hardEnemy(enemiesSpritesPath + "hard/", 0.2f, 200, 35, 0.35f, EntityType::kEasyEnemy, 0.75, 3, 100, { 0,0 }, 125);
+    Enemy hardcoreEnemy(enemiesSpritesPath + "hardcore/", 0.2f, 500, 50, 1, EntityType::kEasyEnemy, 0.5, 5, 250, { 0,0 }, 80);
 
     easyEnemy.Load(&projectileManager);
     mediumEnemy.Load(&projectileManager);
@@ -37,11 +38,13 @@ int main()
 
     EnemyManager enemyManager;
     enemyManager.DefineEnemies(&easyEnemy, &mediumEnemy, &hardEnemy, &hardcoreEnemy);
+    enemyManager.SetAllWaves();
+    //enemyManager.AddEnemy(&easyEnemy, { winWidth / 2,-100 });
 
-    Player player("assets/sprites/Character/", 0.175,100,10,0.3f);
+    Player player("assets/sprites/Character/", 0.175,100,10,0.3f, EntityType::kPlayer);
     player.Load(&projectileManager);
 
-    RenderWindow mainWindow(VideoMode({ 1920,1080 }), "Sea Shooter");
+    RenderWindow mainWindow(VideoMode({ winWidth,winHeight}), "Sea Shooter");
 
     mainWindow.setVerticalSyncEnabled(true);
     mainWindow.setFramerateLimit(winFrameRate);
@@ -106,12 +109,12 @@ int main()
 
         //second layer
         //draw enemies
-	    for (auto enemy : enemyManager.GetAllEnemies())
+	    for (auto& enemy : enemyManager.GetAllEnemies())
 	    {
-            enemy->AnimationUpdate();
-	    	mainWindow.draw(*enemy);
-            enemy->Move();
-
+            enemy.AnimationUpdate();
+            mainWindow.draw(enemy);
+            enemy.Move();
+            enemy.Shoot();
 	    }
 
         //third layer

@@ -59,13 +59,10 @@ void Animation::UpdateIdx()
 
 const void Animation::Update()
 {
-
 	// Every 100ms, we load a new texture
 	if (isPlaying_) {
 		UpdateIdx();
 	}
-
-	
 }
 
 void Animation::Play()
