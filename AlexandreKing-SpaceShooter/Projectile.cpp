@@ -19,6 +19,7 @@ void Projectile::SetPosition(Vector2f newPosition)
 
 void Projectile::CenterOrigin()
 {
+	//Set the origin based on the texture
 	if (animation_.GetTexture())
 	{
 		Vector2f newOrigin{

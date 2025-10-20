@@ -27,6 +27,7 @@ void Enemy::Move()
 {
 	deltaTime = movingClock_.restart();
 	Vector2f newPosition{getPosition()};
+	//Stops the enemy at y >= 500 so the player can shoot them
 	if (direction_.length() >0 && getPosition().y <500)
 	{
 		newPosition = getPosition() + direction_.normalized() * speed_ * deltaTime.asSeconds();

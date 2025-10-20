@@ -3,6 +3,7 @@
 constexpr float winWidth = 1920;
 constexpr int winHeight = 1080;
 
+//Easy wave, this can then be combined with the other ones to create a full game with different wave complexity 
 void EnemyManager::SetEnemyWaveEasy()
 {
 	//Define the wave
@@ -65,15 +66,18 @@ void EnemyManager::SetEnemyWaveEasy()
 
 void EnemyManager::SetEnemyWaveMedium()
 {
+	//TODO: Define medium wave
 }
 
 void EnemyManager::SetEnemyWaveHard()
 {
+	//TODO: Define hard wave
 }
 
 //PRIVATE
 void EnemyManager::SetEnemyWaveHardcore()
 {
+	//TODO: Define hardcore wave
 }
 
 
@@ -98,7 +102,7 @@ void EnemyManager::Spawn()
 		{
 			auto currentWave = enemyWavePrediction[currentWaveIndex_].first;
 			int width = winWidth;
-			AddEnemy(currentWave.first, { (float)(rand() % width),-100 });
+			AddEnemy(currentWave.first, { (float)(rand() % width),0 });
 
 			waveDelay = milliseconds(0);
 			currentWaveIndex_++;
@@ -117,7 +121,7 @@ void EnemyManager::DefineEnemies(Enemy* easyEnemy, Enemy* mediumEnemy, Enemy* ha
 	hardcoreEnemy_ = hardcoreEnemy;
 }
 
-
+//Final step to add an enemy. Enemy is now in the list and will be displayed in game
 void EnemyManager::AddEnemy(Enemy* enemy,Vector2f startPosition)
 {
 	Enemy newEnemy = *enemy;

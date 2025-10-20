@@ -26,26 +26,17 @@ void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f
 		break;
 	}
 
-
+	//center the projectile so it's origin is now in the center
 	newProjectile.CenterOrigin();
 
 	newProjectile.SetDirection(projectileDirection);
 
-	/*Angle directionAngle;
-	if (projectileDirection.x < 0)
-	{
-		directionAngle = degrees(45);
-	}
-	else if (projectileDirection.x > 0)
-	{
-		directionAngle = degrees(-45);
-	}
-	else
-	{
-		directionAngle = degrees(0);
-	}
-	newProjectile.setRotation(directionAngle);*/
-
+	//Rotates the projectile so that it is oriented in the direction in which it is moving
+	/*
+	float angleRadians = atan2(projectileDirection.y, projectileDirection.x);
+	float angleDegrees = angleRadians * 180 / M_PI;
+	newProjectile.setRotation(degrees(angleDegrees));
+	*/
 
 	newProjectile.SetPosition(projectileStartPosition);
 
