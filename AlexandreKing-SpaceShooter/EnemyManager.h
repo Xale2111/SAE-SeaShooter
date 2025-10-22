@@ -26,13 +26,15 @@ private:
 	std::vector<Enemy> allEnemies_;
 
 	//first pair = enemy difficulty and formation, float is the delay between two enemy spawning
-	std::vector<std::pair<std::pair<Enemy*, EnemyFormation>,float>> enemyWavePrediction;
+	std::vector<std::pair<std::pair<EntityType, EnemyFormation>,float>> enemyWavePrediction;
 
 	//Create template of enemy (green-> easy, blue-> medium, red-> hard, Yellow-> HARDCORE)
-	Enemy* easyEnemy_;
-	Enemy* mediumEnemy_;
-	Enemy* hardEnemy_;
-	Enemy* hardcoreEnemy_;
+	Enemy easyEnemy_ = Enemy(enemiesSpritesPath + "easy/", 0.2f, 50, 10, 0.4f, EntityType::kEasyEnemy, 1, 1, 20, { 0,0 }, 100, -1);
+	Enemy mediumEnemy_ = Enemy(enemiesSpritesPath + "medium/", 0.2f, 100, 25, 1, EntityType::kEasyEnemy, 0.5, 1, 50, { 0,0 }, 110, -1);
+	Enemy hardEnemy_ = Enemy(enemiesSpritesPath + "hard/", 0.2f, 200, 35, 0.35f, EntityType::kEasyEnemy, 0.75, 3, 100, { 0,0 }, 125, -1);
+	Enemy hardcoreEnemy_ = Enemy(enemiesSpritesPath + "hardcore/", 0.2f, 500, 50, 1, EntityType::kEasyEnemy, 0.5, 5, 250, { 0,0 }, 80, -1);
+
+	uint64_t enemyID;
 
 	int currentWaveIndex_ = 0;
 
@@ -46,11 +48,13 @@ private:
 	void SetEnemyWaveHardcore();
 
 public:
+	EnemyManager(ProjectileManager&);
+
 	void SetAllWaves();
 	void Spawn();
-	void DefineEnemies(Enemy* easyEnemy, Enemy* mediumEnemy, Enemy* hardEnemy, Enemy* hardcoreEnemy);
+	void DefineEnemies(Enemy& easyEnemy, Enemy& mediumEnemy, Enemy& hardEnemy, Enemy& hardcoreEnemy);
 	//Spawn enemy at random possible position
-	void AddEnemy(Enemy* enemy,Vector2f startPosition);
+	void AddEnemy(EntityType enemyType,Vector2f startPosition);
 	std::vector<Enemy>& GetAllEnemies();
 
 

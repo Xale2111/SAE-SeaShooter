@@ -4,9 +4,6 @@
 #include "Projectile.h"
 #include "EntityType.h"
 
-
-class Entity;
-
 const std::string ProjectileSpritesPath = "assets/sprites/laser/";
 
 class ProjectileManager

@@ -24,22 +24,14 @@ int main()
     audio_manager.LoadAll();
     ProjectileManager projectileManager;
     projectileManager.Load();
-
-    
-    Enemy easyEnemy(enemiesSpritesPath + "easy/", 0.2f, 50, 10, 0.4f,EntityType::kEasyEnemy, 1, 1, 20, { 0,0 }, 100);
-	Enemy mediumEnemy(enemiesSpritesPath + "medium/", 0.2f, 100, 25, 1, EntityType::kEasyEnemy, 0.5, 1, 50, { 0,0 }, 110);
-	Enemy hardEnemy(enemiesSpritesPath + "hard/", 0.2f, 200, 35, 0.35f, EntityType::kEasyEnemy, 0.75, 3, 100, { 0,0 }, 125);
-    Enemy hardcoreEnemy(enemiesSpritesPath + "hardcore/", 0.2f, 500, 50, 1, EntityType::kEasyEnemy, 0.5, 5, 250, { 0,0 }, 80);
-
-    easyEnemy.Load(&projectileManager);
+    /*easyEnemy.Load(&projectileManager);
     mediumEnemy.Load(&projectileManager);
     hardEnemy.Load(&projectileManager);
-    hardcoreEnemy.Load(&projectileManager);
+    hardcoreEnemy.Load(&projectileManager);*/
 
-    EnemyManager enemyManager;
-    enemyManager.DefineEnemies(&easyEnemy, &mediumEnemy, &hardEnemy, &hardcoreEnemy);
+    EnemyManager enemyManager(projectileManager);
+    //enemyManager.DefineEnemies(easyEnemy, mediumEnemy, hardEnemy, hardcoreEnemy);
     enemyManager.SetAllWaves();
-    //enemyManager.AddEnemy(&easyEnemy, { winWidth / 2,-100 });
 
     Player player("assets/sprites/Character/", 0.175,100,10,0.3f, EntityType::kPlayer);
     player.Load(&projectileManager);
@@ -109,13 +101,14 @@ int main()
 
         //second layer
         //draw enemies
-	    for (auto& enemy : enemyManager.GetAllEnemies())
-	    {
+        
+        for (auto& enemy : enemyManager.GetAllEnemies())
+        {
             enemy.AnimationUpdate();
             mainWindow.draw(enemy);
-            enemy.Move();
+        	enemy.Move();
             enemy.Shoot();
-	    }
+        }
 
         //third layer
         player.AnimationUpdate();
