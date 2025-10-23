@@ -3,9 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <random>
+
 #include "Animation.h"
 #include "AudioManager.h"
 #include "EnemyManager.h"
+#include "MeteorManager.h"
 #include "Player.h"
 #include "ProjectileManager.h"
 
@@ -17,9 +20,6 @@ using namespace sf;
 
 int main()
 {
-
-    srand(static_cast<unsigned>(time(nullptr)));
-
     AudioManager audioManager;
     audioManager.LoadAll();
     ProjectileManager projectileManager;
@@ -28,11 +28,21 @@ int main()
     EnemyManager enemyManager(projectileManager, audioManager);
     enemyManager.SetAllWaves();
 
+    MeteorManager meteorManager;
+    meteorManager.Load();
+
     Player player("assets/sprites/Character/", 0.175,100,10,0.3f, EntityType::kPlayer);
     player.Load(&projectileManager, &audioManager);
 
 
     Clock clock;
+    meteorManager.SpawnMeteor(clock.restart());
+    meteorManager.SpawnMeteor(clock.restart());
+    meteorManager.SpawnMeteor(clock.restart());
+    meteorManager.SpawnMeteor(clock.restart());
+    meteorManager.SpawnMeteor(clock.restart());
+    meteorManager.SpawnMeteor(clock.restart());
+    meteorManager.SpawnMeteor(clock.restart());
 
 
     //Window
@@ -83,6 +93,7 @@ int main()
         }
 
         enemyManager.Spawn(deltaTime);
+        //meteorManager.SpawnMeteor(deltaTime);
 
         // Visual Update
         mainWindow.clear(Color({ 87, 250, 215 }));
@@ -93,7 +104,7 @@ int main()
 	    {
             projectile.AnimationUpdate();
             mainWindow.draw(projectile);
-            if (projectile.Move(deltaTime) == ProjectileState::Destroyed)
+            if (projectile.Move(deltaTime) == ObjectState::Destroyed)
             {
                 projectileManager.AddProjectileToRemoveList(&projectile);
             }
@@ -117,6 +128,18 @@ int main()
 
         //Top layer
         //Draw plastic bags
+        for (auto& meteor : meteorManager.GetAllMeteors())
+        {
+            meteor.AnimationUpdate();
+            mainWindow.draw(meteor);
+
+            meteor.Move(deltaTime);
+            /*
+        	if ( == ObjectState::Destroyed)
+            {
+                meteorManager.AddRemoveMeteor(meteor);
+            }*/
+        }
 
 
         // Window Display

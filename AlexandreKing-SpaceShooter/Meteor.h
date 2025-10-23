@@ -1,37 +1,31 @@
 #pragma once
-#include <optional>
 #include <SFML/Graphics.hpp>
+
 #include "Animation.h"
 #include "ObjectState.h"
 
-
-
-
 using namespace sf;
-class Projectile : public Transformable, public Drawable
+
+class Meteor : public Drawable, public Transformable
 {
 private:
-	uint64_t id_;
-
-	Vector2f position_;
-	Animation animation_;
-	float speed_;
-	ObjectState state_=ObjectState::None;
-
 	Vector2f direction_;
-
+	float rotationDegree_;
+	float speed_;
+	Animation animation_;
+	ObjectState state_ = ObjectState::None;
+	Vector2f position_;
 
 public:
-	void Load(std::string spritePath, float speed = 350 );
+	void Load(std::string spritePath);
 	void SetDirection(Vector2f newDirection);
+	void SetRotationDegrees(float rtDegrees);
+	void SetSpeed(float newSpeed);
 	void SetPosition(Vector2f newPosition);
-	void CenterOrigin();
-	void SetRotation(Vector2f direction);
-	Vector2f GetPosition();
+	void SetMeteorSize(float newScale);
 	void AnimationUpdate();
 	ObjectState Move(Time deltaTime);
-	void SetID(uint64_t id);
-	uint64_t GetID();
+
 protected:
 	void draw(RenderTarget& target, RenderStates states) const override;
 

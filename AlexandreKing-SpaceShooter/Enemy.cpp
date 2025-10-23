@@ -7,7 +7,6 @@
 
 void Enemy::SetRotation(Vector2f direction)
 {
-
 	float angleRadians = atan2(direction.y, direction.x);
 	float angleDegrees = angleRadians * 180 / M_PI;
 	rotate(degrees(angleDegrees-90));
@@ -29,11 +28,9 @@ void Enemy::Shoot()
 {
 	if (shootDeltaTime_.asSeconds() > shootingDelay_)
 	{
-		for (int i = 0; i < shootingAmount_; ++i)
-		{
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_);
-			audioManager_->PlayLaserSoundEffect();
-		}
+	
+		projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_);
+		audioManager_->PlayLaserSoundEffect();
 		shootDeltaTime_ = Time(seconds(0));
 	}
 }

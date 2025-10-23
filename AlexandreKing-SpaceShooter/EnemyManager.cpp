@@ -184,6 +184,8 @@ void EnemyManager::CreateFormation(WaveSegment wave)
 		AddEnemy(wave.GetType(), wave.GetStartPosition(),{75,0});
 			break;
 	case EnemyFormation::kTriangle :
+		//Place first normally
+		//Place second and third like duo but behind the first one
 		break;
 	case EnemyFormation::kBigTriangle :
 		break;

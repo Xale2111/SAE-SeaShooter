@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "WaveSegment.h"
 
-const std::string enemiesSpritesPath = "assets/sprites/enemy/";
+const std::string ENEMIES_SPRITES_PATH = "assets/sprites/enemy/";
 
 
 
@@ -16,10 +16,10 @@ private:
 	std::vector<WaveSegment> enemyWavePrediction;
 
 	//Create template of enemy (green-> easy, blue-> medium, red-> hard, Yellow-> HARDCORE)
-	Enemy easyEnemy_ = Enemy(enemiesSpritesPath + "easy/", 0.2f, 50, 10, 0.4f, EntityType::kEasyEnemy, 1, 1, 20, { 0,0 }, 100, -1);
-	Enemy mediumEnemy_ = Enemy(enemiesSpritesPath + "medium/", 0.2f, 100, 25, 1, EntityType::kEasyEnemy, 0.5, 1, 50, { 0,0 }, 110, -1);
-	Enemy hardEnemy_ = Enemy(enemiesSpritesPath + "hard/", 0.2f, 200, 35, 0.35f, EntityType::kEasyEnemy, 0.75, 3, 100, { 0,0 }, 125, -1);
-	Enemy hardcoreEnemy_ = Enemy(enemiesSpritesPath + "hardcore/", 0.2f, 500, 50, 1, EntityType::kEasyEnemy, 0.5, 5, 250, { 0,0 }, 80, -1);
+	Enemy easyEnemy_ = Enemy(ENEMIES_SPRITES_PATH + "easy/", 0.2f, 50, 10, 0.4f, EntityType::kEasyEnemy, 1, 1, 20, { 0,0 }, 100, -1);
+	Enemy mediumEnemy_ = Enemy(ENEMIES_SPRITES_PATH + "medium/", 0.2f, 100, 25, 1, EntityType::kMediumEnemy, 0.6, 1, 50, { 0,0 }, 110, -1);
+	Enemy hardEnemy_ = Enemy(ENEMIES_SPRITES_PATH + "hard/", 0.2f, 200, 35, 0.35f, EntityType::kHardEnemy, 0.8, 3, 100, { 0,0 }, 125, -1);
+	Enemy hardcoreEnemy_ = Enemy(ENEMIES_SPRITES_PATH + "hardcore/", 0.2f, 500, 50, 1, EntityType::kHardcoreEnemy, 0.45, 5, 250, { 0,0 }, 80, -1);
 
 	uint64_t enemyID;
 

@@ -1,5 +1,7 @@
 #include "Projectile.h"
 
+#include <corecrt_math_defines.h>
+
 void Projectile::Load(std::string spritePath, float speed)
 {
 	animation_.Load(spritePath, 0.05f);
@@ -10,6 +12,7 @@ void Projectile::Load(std::string spritePath, float speed)
 void Projectile::SetDirection(Vector2f newDirection)
 {
 	direction_ = newDirection;
+	//SetRotation(direction_);
 }
 
 void Projectile::SetPosition(Vector2f newPosition)
@@ -30,9 +33,12 @@ void Projectile::CenterOrigin()
 	}
 }
 
-void Projectile::SetRotation(float rotationsDegrees)
+void Projectile::SetRotation(Vector2f direction)
 {
-	setRotation(degrees(rotationsDegrees));
+
+	float angleRadians = atan2(direction.y, direction.x);
+	float angleDegrees = angleRadians * 180 / M_PI;
+	rotate(degrees(angleDegrees-90));
 }
 
 Vector2f Projectile::GetPosition()
@@ -45,17 +51,17 @@ void Projectile::AnimationUpdate()
 	animation_.Update();
 }
 
-ProjectileState Projectile::Move(Time dt)
+ObjectState Projectile::Move(Time dt)
 {
-	state_ = ProjectileState::Moving;
 
-	if (direction_.length() > 0)
+	if (direction_.length() > 0 && state_ != ObjectState::Destroyed)
 	{
+		state_ = ObjectState::Moving;
 		SetPosition(position_ + direction_.normalized() * speed_ * dt.asSeconds());
 	}
-	if (GetPosition().y <-500 || GetPosition().y>2500)
+	if (GetPosition().y <-100 || GetPosition().y>2020)
 	{
-		state_ = ProjectileState::Destroyed;
+		state_ = ObjectState::Destroyed;
 	}
 	return state_;
 

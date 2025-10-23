@@ -4,7 +4,7 @@
 #include "Projectile.h"
 #include "EntityType.h"
 
-const std::string ProjectileSpritesPath = "assets/sprites/laser/";
+const std::string PROJECTILE_SPRITES_PATH = "assets/sprites/laser/";
 
 class ProjectileManager
 {
@@ -12,6 +12,7 @@ private:
 	uint64_t projectileCounter;
 	Projectile playerProjectile_;
 	Projectile enemyProjectile_;
+	Projectile hardEnemyProjectile_;
 	std::vector<Projectile> allProjectiles_;
 	std::vector<Projectile> projectilesToRemove_;
 public:

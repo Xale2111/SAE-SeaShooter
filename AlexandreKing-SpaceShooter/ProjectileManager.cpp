@@ -1,12 +1,10 @@
 #include "ProjectileManager.h"
-#include <iostream>
-#define _USE_MATH_DEFINES
-#include <math.h>
 
 void ProjectileManager::Load()
 {
-	playerProjectile_.Load(ProjectileSpritesPath + "player");
-	enemyProjectile_.Load(ProjectileSpritesPath+"enemy");
+	playerProjectile_.Load(PROJECTILE_SPRITES_PATH + "player");
+	enemyProjectile_.Load(PROJECTILE_SPRITES_PATH + "enemy/all");
+	hardEnemyProjectile_.Load(PROJECTILE_SPRITES_PATH+"enemy/hard");
 }
 
 
@@ -20,9 +18,11 @@ void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f
 		break;
 	case EntityType::kEasyEnemy:
 	case EntityType::kMediumEnemy:
+		newProjectile = enemyProjectile_;
+		break;
 	case EntityType::kHardEnemy:
 	case EntityType::kHardcoreEnemy:
-		newProjectile = enemyProjectile_;
+		newProjectile = hardEnemyProjectile_;
 		break;
 	}
 
@@ -30,13 +30,6 @@ void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f
 	newProjectile.CenterOrigin();
 
 	newProjectile.SetDirection(projectileDirection);
-
-	//Rotates the projectile so that it is oriented in the direction in which it is moving
-	/*
-	float angleRadians = atan2(projectileDirection.y, projectileDirection.x);
-	float angleDegrees = angleRadians * 180 / M_PI;
-	newProjectile.setRotation(degrees(angleDegrees));
-	*/
 
 	newProjectile.SetPosition(projectileStartPosition);
 
