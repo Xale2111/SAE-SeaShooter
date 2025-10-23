@@ -23,8 +23,6 @@ private:
 
 	Vector2f direction_;
 
-	Clock clock_;
-
 
 public:
 	void Load(std::string spritePath, float speed = 350 );
@@ -34,7 +32,7 @@ public:
 	void SetRotation(float rotationsDegrees);
 	Vector2f GetPosition();
 	void AnimationUpdate();
-	ProjectileState Move();
+	ProjectileState Move(Time deltaTime);
 	void SetID(uint64_t id);
 	uint64_t GetID();
 protected:

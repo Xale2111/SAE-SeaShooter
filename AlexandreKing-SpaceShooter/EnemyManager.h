@@ -1,24 +1,11 @@
 #pragma once
 #include "Enemy.h"
 #include "Player.h"
+#include "WaveSegment.h"
 
 const std::string enemiesSpritesPath = "assets/sprites/enemy/";
 
-enum class EnemyFormation
-{
-	kSingleLeft,			//1 unit from top left
-	kSingleMiddle,		//1 unit from top middle
-	kSingleRight,		//1 unit from top right
-	kDuoLeft,			//2 units from top left
-	kDuoMiddle,			//2 units from top middle
-	kDuoRight,			//2 units from top right
-	kTriangleLeft,		//3 units from top left
-	kTriangleMiddle,		//3 units from top middle
-	kTriangleRight,		//3 units from top right
-	kBigTriangleLeft,	//5 units from top left
-	kBigTriangleMiddle,	//5 units from top middle
-	kBigTriangleRight	//5 units from top right
-};
+
 
 class EnemyManager
 {
@@ -26,7 +13,7 @@ private:
 	std::vector<Enemy> allEnemies_;
 
 	//first pair = enemy difficulty and formation, float is the delay between two enemy spawning
-	std::vector<std::pair<std::pair<EntityType, EnemyFormation>,float>> enemyWavePrediction;
+	std::vector<WaveSegment> enemyWavePrediction;
 
 	//Create template of enemy (green-> easy, blue-> medium, red-> hard, Yellow-> HARDCORE)
 	Enemy easyEnemy_ = Enemy(enemiesSpritesPath + "easy/", 0.2f, 50, 10, 0.4f, EntityType::kEasyEnemy, 1, 1, 20, { 0,0 }, 100, -1);
@@ -38,23 +25,32 @@ private:
 
 	int currentWaveIndex_ = 0;
 
-	Clock clock_;
 	Time waveDelay;
+
+	Vector2f possibleStartPositions[5] = {
+	{ -100.f,  -100.f },  // kLeft
+	{  430.f,  -100.f },  // kMiddleLeft
+	{  960.f,  -100.f },  // kMiddle 
+	{ 1490.f,  -100.f },  // kMiddleRight
+	{ 2020.f,  -100.f }   // kRight
+	};
 
 
 	void SetEnemyWaveEasy();
 	void SetEnemyWaveMedium();
 	void SetEnemyWaveHard();
 	void SetEnemyWaveHardcore();
+	Vector2f GetStartPositionFromEnum(EnemyStartPosition startPosition);
+	Vector2f GetDirectionFromStartPosition(EnemyStartPosition startPosition);
 
 public:
-	EnemyManager(ProjectileManager&);
+	EnemyManager(ProjectileManager& projectile_manager, AudioManager& audio_manager);
 
 	void SetAllWaves();
-	void Spawn();
-	void DefineEnemies(Enemy& easyEnemy, Enemy& mediumEnemy, Enemy& hardEnemy, Enemy& hardcoreEnemy);
+	void Spawn(Time deltaTime);
 	//Spawn enemy at random possible position
-	void AddEnemy(EntityType enemyType,Vector2f startPosition);
+	void CreateFormation(WaveSegment segment);
+	void AddEnemy(EntityType enemyType,EnemyStartPosition startPosition, Vector2f offset ={0,0});
 	std::vector<Enemy>& GetAllEnemies();
 
 

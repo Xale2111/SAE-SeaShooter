@@ -9,4 +9,5 @@ void Player::Shoot()
 	*/
 	//Center Laser
 	projectileManager_->AddProjectile({getPosition().x, getPosition().y},{0,-1}, type_);
+	audioManager_->PlayLaserSoundEffect();
 }

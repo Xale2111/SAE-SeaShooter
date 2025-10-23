@@ -10,9 +10,10 @@ Entity::Entity(std::string spritesPath, float animSpeed, int healthPoint, int da
 	type_ = type;
 }
 
-void Entity::Load(ProjectileManager* projectileManager)
+void Entity::Load(ProjectileManager* projectileManager, AudioManager* audioManager)
 {
 	projectileManager_ = projectileManager;
+	audioManager_ = audioManager;
 }
 
 void Entity::AnimationUpdate()

@@ -6,15 +6,16 @@ using namespace sf;
 class Enemy : public Entity
 {
 private:
-	Clock shootingClock_;
-	Clock movingClock_;
 	float shootingDelay_;
 	int shootingAmount_;
 	int pointValue_;
-	Time deltaTime;
+	Time moveDeltaTime_;
+	Time shootDeltaTime_;
 	Vector2f direction_;
 	float speed_;
 	uint64_t ID_;
+
+	void SetRotation(Vector2f direction);
 
 public:
 	Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale,EntityType type,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID);
@@ -23,5 +24,6 @@ public:
 	void SetPosition(Vector2f newPosition);
 	void SetDirection(Vector2f newDirection);
 	void SetID(uint64_t newID);
+	void SetDeltaTime(Time deltaTime);
 };
 

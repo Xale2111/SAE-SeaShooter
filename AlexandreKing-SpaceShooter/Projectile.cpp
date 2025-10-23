@@ -45,19 +45,13 @@ void Projectile::AnimationUpdate()
 	animation_.Update();
 }
 
-ProjectileState Projectile::Move()
+ProjectileState Projectile::Move(Time dt)
 {
-	if (state_ == ProjectileState::Spawned)
-	{
-		clock_.restart();
-		state_ = ProjectileState::Moving;
-	}
-	Time deltaTime = clock_.restart();
-	
+	state_ = ProjectileState::Moving;
 
 	if (direction_.length() > 0)
 	{
-		SetPosition(position_ + direction_.normalized() * speed_ * deltaTime.asSeconds());
+		SetPosition(position_ + direction_.normalized() * speed_ * dt.asSeconds());
 	}
 	if (GetPosition().y <-500 || GetPosition().y>2500)
 	{

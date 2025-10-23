@@ -20,22 +20,22 @@ int main()
 
     srand(static_cast<unsigned>(time(nullptr)));
 
-    AudioManager audio_manager;
-    audio_manager.LoadAll();
+    AudioManager audioManager;
+    audioManager.LoadAll();
     ProjectileManager projectileManager;
     projectileManager.Load();
-    /*easyEnemy.Load(&projectileManager);
-    mediumEnemy.Load(&projectileManager);
-    hardEnemy.Load(&projectileManager);
-    hardcoreEnemy.Load(&projectileManager);*/
 
-    EnemyManager enemyManager(projectileManager);
-    //enemyManager.DefineEnemies(easyEnemy, mediumEnemy, hardEnemy, hardcoreEnemy);
+    EnemyManager enemyManager(projectileManager, audioManager);
     enemyManager.SetAllWaves();
 
     Player player("assets/sprites/Character/", 0.175,100,10,0.3f, EntityType::kPlayer);
-    player.Load(&projectileManager);
+    player.Load(&projectileManager, &audioManager);
 
+
+    Clock clock;
+
+
+    //Window
     RenderWindow mainWindow(VideoMode({ winWidth,winHeight}), "Sea Shooter");
 
     mainWindow.setVerticalSyncEnabled(true);
@@ -49,6 +49,9 @@ int main()
 
     while (mainWindow.isOpen())
     {
+        Time deltaTime = clock.restart();
+
+
 	    if (Mouse::getPosition().x > mainWindow.getSize().x)
 	    {
             Mouse::setPosition({ 0,Mouse::getPosition().y });
@@ -61,9 +64,6 @@ int main()
         player.setPosition(static_cast<Vector2f>(Mouse::getPosition()));
         while (const std::optional event = mainWindow.pollEvent())
         {
-
-            enemyManager.Spawn();
-
             if (event->is<sf::Event::Closed>())
             {
                 mainWindow.close();
@@ -77,11 +77,12 @@ int main()
             {
 	            if (mousePressed->button == Mouse::Button::Left)
 	            {
-                    audio_manager.PlayLaserSoundEffect();
                     player.Shoot();
 	            }   
             }
         }
+
+        enemyManager.Spawn(deltaTime);
 
         // Visual Update
         mainWindow.clear(Color({ 87, 250, 215 }));
@@ -92,7 +93,7 @@ int main()
 	    {
             projectile.AnimationUpdate();
             mainWindow.draw(projectile);
-            if (projectile.Move() == ProjectileState::Destroyed)
+            if (projectile.Move(deltaTime) == ProjectileState::Destroyed)
             {
                 projectileManager.AddProjectileToRemoveList(&projectile);
             }
@@ -101,12 +102,12 @@ int main()
 
         //second layer
         //draw enemies
-        
         for (auto& enemy : enemyManager.GetAllEnemies())
         {
+            enemy.SetDeltaTime(deltaTime);
             enemy.AnimationUpdate();
-            mainWindow.draw(enemy);
         	enemy.Move();
+            mainWindow.draw(enemy);
             enemy.Shoot();
         }
 
@@ -120,7 +121,6 @@ int main()
 
         // Window Display
         mainWindow.display();
-
     }
 
 }
