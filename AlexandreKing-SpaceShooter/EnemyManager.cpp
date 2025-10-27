@@ -80,7 +80,7 @@ void EnemyManager::SetEnemyWaveHardcore()
 	//TODO: Define hardcore wave
 }
 
-Vector2f EnemyManager::GetStartPositionFromEnum(EnemyStartPosition startPosition)
+Vector2f EnemyManager::GetStartPositionFromEnum(EnemyStartPosition startPosition, int forceMiddleSpawnPosition)
 {
 	Vector2f startCoordinates({ 0,0 });
 	switch (startPosition)
@@ -92,6 +92,10 @@ Vector2f EnemyManager::GetStartPositionFromEnum(EnemyStartPosition startPosition
 	case kMiddle:
 	{
 		int randMiddle = rand() % 3 + 1;
+		if (forceMiddleSpawnPosition >=0 && forceMiddleSpawnPosition < possibleStartPositions->length())
+		{
+			randMiddle = forceMiddleSpawnPosition;
+		}
 		std::cout << randMiddle << std::endl;
 		startCoordinates = possibleStartPositions[randMiddle];
 	}
@@ -172,33 +176,41 @@ void EnemyManager::Spawn(Time dt)
 	}
 }
 
+//TODO : Set offset based on shark size
 void EnemyManager::CreateFormation(WaveSegment wave)
 {
+	int middleSpawnPosition = rand() % 3 + 1;
+	
 	switch (wave.GetFormation())
 	{
 	case EnemyFormation::kSingle:
 		AddEnemy(wave.GetType(), wave.GetStartPosition());
 		break;
 	case EnemyFormation::kDuo :
-		AddEnemy(wave.GetType(), wave.GetStartPosition(), { -75,0 });
-		AddEnemy(wave.GetType(), wave.GetStartPosition(),{75,0});
-			break;
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { -75,0 },middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(),{75,0}, middleSpawnPosition);
+		break;
 	case EnemyFormation::kTriangle :
-		//Place first normally
-		//Place second and third like duo but behind the first one
+		AddEnemy(wave.GetType(), wave.GetStartPosition(),{0,0}, middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { 75,-100 }, middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { -75,-100 }, middleSpawnPosition);
 		break;
 	case EnemyFormation::kBigTriangle :
+		AddEnemy(wave.GetType(), wave.GetStartPosition(),{0,0}, middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { -75,-100 }, middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { 75,-100 }, middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { -150,-200 }, middleSpawnPosition);
+		AddEnemy(wave.GetType(), wave.GetStartPosition(), { 150,-200 }, middleSpawnPosition);
 		break;
 
 	default:
 		std::cout << "Shouldn't pass through here... (ENEMY MANAGER->CREATE FORMATION)";
 		break;
-
 	}
 }
 
 //Final step to add an enemy. Enemy is now in the list and will be displayed in game
-void EnemyManager::AddEnemy(EntityType enemyType, EnemyStartPosition startPosition, Vector2f offset)
+void EnemyManager::AddEnemy(EntityType enemyType, EnemyStartPosition startPosition, Vector2f offset, int middleSpawnPosition)
 {
 	Enemy newEnemy = easyEnemy_;
 
@@ -224,7 +236,7 @@ void EnemyManager::AddEnemy(EntityType enemyType, EnemyStartPosition startPositi
 	newEnemy.SetDirection(GetDirectionFromStartPosition(startPosition));
 	newEnemy.SetID(enemyID);
 
-	newEnemy.SetPosition(GetStartPositionFromEnum(startPosition)+offset);
+	newEnemy.SetPosition(GetStartPositionFromEnum(startPosition, middleSpawnPosition)+offset);
 
 
 	allEnemies_.emplace_back(newEnemy);

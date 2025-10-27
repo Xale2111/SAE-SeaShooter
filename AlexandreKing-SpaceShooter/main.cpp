@@ -36,13 +36,6 @@ int main()
 
 
     Clock clock;
-    meteorManager.SpawnMeteor(clock.restart());
-    meteorManager.SpawnMeteor(clock.restart());
-    meteorManager.SpawnMeteor(clock.restart());
-    meteorManager.SpawnMeteor(clock.restart());
-    meteorManager.SpawnMeteor(clock.restart());
-    meteorManager.SpawnMeteor(clock.restart());
-    meteorManager.SpawnMeteor(clock.restart());
 
 
     //Window
@@ -93,13 +86,12 @@ int main()
         }
 
         enemyManager.Spawn(deltaTime);
-        //meteorManager.SpawnMeteor(deltaTime);
+        meteorManager.SpawnMeteor(deltaTime);
 
         // Visual Update
         mainWindow.clear(Color({ 87, 250, 215 }));
 
         //Lowest drawed item
-
 	    for (auto& projectile : projectileManager.GetAllProjectiles())
 	    {
             projectile.AnimationUpdate();
@@ -132,13 +124,12 @@ int main()
         {
             meteor.AnimationUpdate();
             mainWindow.draw(meteor);
+            meteor.IncreaseRotation();
 
-            meteor.Move(deltaTime);
-            /*
-        	if ( == ObjectState::Destroyed)
+        	if (meteor.Move(deltaTime) == ObjectState::Destroyed)
             {
                 meteorManager.AddRemoveMeteor(meteor);
-            }*/
+            }
         }
 
 

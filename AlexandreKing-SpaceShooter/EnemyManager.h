@@ -40,7 +40,7 @@ private:
 	void SetEnemyWaveMedium();
 	void SetEnemyWaveHard();
 	void SetEnemyWaveHardcore();
-	Vector2f GetStartPositionFromEnum(EnemyStartPosition startPosition);
+	Vector2f GetStartPositionFromEnum(EnemyStartPosition startPosition, int forceMiddleSpawnPosition = -1);
 	Vector2f GetDirectionFromStartPosition(EnemyStartPosition startPosition);
 
 public:
@@ -50,7 +50,7 @@ public:
 	void Spawn(Time deltaTime);
 	//Spawn enemy at random possible position
 	void CreateFormation(WaveSegment segment);
-	void AddEnemy(EntityType enemyType,EnemyStartPosition startPosition, Vector2f offset ={0,0});
+	void AddEnemy(EntityType enemyType, EnemyStartPosition startPosition, Vector2f offset = { 0,0 }, int middleSpawnPosition = -1);
 	std::vector<Enemy>& GetAllEnemies();
 
 

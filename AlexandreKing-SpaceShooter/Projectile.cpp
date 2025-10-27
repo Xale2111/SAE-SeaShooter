@@ -79,7 +79,7 @@ uint64_t Projectile::GetID()
 
 void Projectile::draw(RenderTarget& target, RenderStates states) const
 {
-	sf::Texture texture = *animation_.GetTexture();
+	Texture texture = *animation_.GetTexture();
 	Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setPosition(position_);

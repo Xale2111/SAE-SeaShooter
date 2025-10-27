@@ -1,5 +1,7 @@
 #include "MeteorManager.h"
 
+#include <iostream>
+
 #include "Random.h"
 
 void MeteorManager::Load()
@@ -11,7 +13,7 @@ void MeteorManager::Load()
 
 void MeteorManager::SpawnMeteor(Time dt)
 {
-	//if (spawnDelay > 3)
+	if (spawnDelay > Random::Int(3,15))
 	{
 		spawnDelay = 0;
 		Meteor newMeteor;
@@ -19,7 +21,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 		float positionRand = Random::Float(0, 1920);
 		int rotationDirectionRand = Random::Int(0, 1);
 		int rotationSpeedRand = Random::Int(5, 25);
-		float speedRand = Random::Float(75, 120);
+		float speedRand = Random::Float(120, 180);
 
 		if (rotationDirectionRand == 1)
 		{
@@ -40,15 +42,16 @@ void MeteorManager::SpawnMeteor(Time dt)
 		default:
 			newMeteor = plasticBag_;
 		}
+		std::cout << "Meteor X pos : " << positionRand;
 
 		newMeteor.SetMeteorSize(Random::Float(0.6f, 0.8f));
 		newMeteor.SetRotationDegrees(rotationSpeedRand);
 		newMeteor.SetSpeed(speedRand);
 
-		float xDir = ((positionRand < 960) ? 1.f : -1.f) * (Random::Float(10,40)  / 100.f);
+		float xDir = ((positionRand < 960) ? 1.f : -1.f) * (Random::Float(10,80)  / 100.f);
 
 		newMeteor.SetDirection({ xDir,1 });
-		newMeteor.SetPosition({ positionRand,300 });
+		newMeteor.SetPosition({ positionRand,-100 });
 
 		allMeteors_.emplace_back(newMeteor);
 	}
@@ -59,7 +62,7 @@ void MeteorManager::AddRemoveMeteor(Meteor& meteorToRemove)
 {
 }
 
-std::vector<Meteor> MeteorManager::GetAllMeteors()
+std::vector<Meteor>& MeteorManager::GetAllMeteors()
 {
 	return allMeteors_;
 }

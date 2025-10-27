@@ -19,6 +19,11 @@ void Meteor::SetRotationDegrees(float rtDegrees)
 	rotationDegree_ = rtDegrees;
 }
 
+void Meteor::IncreaseRotation()
+{
+	currentRotation_ += rotationDegree_;
+}
+
 void Meteor::SetSpeed(float newSpeed)
 {
 	speed_ = newSpeed;
@@ -45,9 +50,8 @@ ObjectState Meteor::Move(Time deltaTime)
 	{
 		state_ = ObjectState::Moving;
 		position_ += direction_.normalized() * speed_ * deltaTime.asSeconds();
-		std::cout << "Meteor pos : " << position_.x << ";" << position_.y << std::endl;
-		std::cout << "deltaTime : " << deltaTime.asSeconds()<<" sec" << std::endl;
 	}
+
 	if (position_.y>2020)
 	{
 		state_ = ObjectState::Destroyed;
@@ -58,12 +62,11 @@ ObjectState Meteor::Move(Time deltaTime)
 
 void Meteor::draw(RenderTarget& target, RenderStates states) const
 {
-	sf::Texture texture = *animation_.GetTexture();
+	Texture texture = *animation_.GetTexture();
 	Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
-	sprite.setScale( getScale());
-	sprite.rotate(degrees(rotationDegree_));
 	sprite.setPosition(position_);
+	sprite.setRotation(degrees(currentRotation_));
 
 	states.transform *= getTransform();
 

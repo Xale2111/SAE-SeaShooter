@@ -18,7 +18,7 @@ public:
 	void Load();
 	void SpawnMeteor(Time deltaTime);
 	void AddRemoveMeteor(Meteor& meteorToRemove);
-	std::vector<Meteor> GetAllMeteors();
+	std::vector<Meteor>& GetAllMeteors();
 
 	//Spawn Meteor every X seconds (add rand)
 	//Meteor can be between size 0.5 and 1.5
