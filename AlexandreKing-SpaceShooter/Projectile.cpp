@@ -1,5 +1,4 @@
 #include "Projectile.h"
-
 #include <corecrt_math_defines.h>
 
 void Projectile::Load(std::string spritePath, float speed)
@@ -11,8 +10,10 @@ void Projectile::Load(std::string spritePath, float speed)
 
 void Projectile::SetDirection(Vector2f newDirection)
 {
-	direction_ = newDirection;
-	//SetRotation(direction_);
+	if (newDirection.length() != 0)
+	{
+		direction_ = newDirection.normalized();
+	}
 }
 
 void Projectile::SetPosition(Vector2f newPosition)
@@ -33,12 +34,12 @@ void Projectile::CenterOrigin()
 	}
 }
 
-void Projectile::SetRotation(Vector2f direction)
+void Projectile::SetRotation(bool isPlayerProjectile)
 {
-
-	float angleRadians = atan2(direction.y, direction.x);
+	float angleRadians;
+	isPlayerProjectile ? angleRadians = atan2(abs(direction_.y), -direction_.x) :angleRadians= atan2(abs(direction_.y), direction_.x);
 	float angleDegrees = angleRadians * 180 / M_PI;
-	rotate(degrees(angleDegrees-90));
+	rotation_ = degrees(angleDegrees-90);
 }
 
 Vector2f Projectile::GetPosition()
@@ -54,12 +55,12 @@ void Projectile::AnimationUpdate()
 ObjectState Projectile::Move(Time dt)
 {
 
-	if (direction_.length() > 0 && state_ != ObjectState::Destroyed)
+	if (state_ != ObjectState::Destroyed)
 	{
 		state_ = ObjectState::Moving;
-		SetPosition(position_ + direction_.normalized() * speed_ * dt.asSeconds());
+		SetPosition(position_ + direction_ * speed_ * dt.asSeconds());
 	}
-	if (GetPosition().y <-100 || GetPosition().y>2020)
+	if (GetPosition().y <-500 || GetPosition().y>2020)
 	{
 		state_ = ObjectState::Destroyed;
 	}
@@ -83,7 +84,7 @@ void Projectile::draw(RenderTarget& target, RenderStates states) const
 	Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setPosition(position_);
-	states.transform *= getTransform();
+	sprite.setRotation(rotation_);
 
 	target.draw(sprite, states);
 }

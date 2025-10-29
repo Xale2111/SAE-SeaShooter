@@ -36,7 +36,7 @@ void Meteor::SetPosition(Vector2f newPosition)
 
 void Meteor::SetMeteorSize(float newScale)
 {
-	scale({ newScale,newScale });
+	scale_ = { newScale,newScale };
 }
 
 void Meteor::AnimationUpdate()
@@ -60,6 +60,16 @@ ObjectState Meteor::Move(Time deltaTime)
 	return state_;
 }
 
+void Meteor::SetId(uint64_t ID)
+{
+	id_ = ID;
+}
+
+uint64_t Meteor::GetId()
+{
+	return id_;
+}
+
 void Meteor::draw(RenderTarget& target, RenderStates states) const
 {
 	Texture texture = *animation_.GetTexture();
@@ -67,8 +77,7 @@ void Meteor::draw(RenderTarget& target, RenderStates states) const
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setPosition(position_);
 	sprite.setRotation(degrees(currentRotation_));
-
-	states.transform *= getTransform();
+	sprite.setScale(scale_);
 
 	target.draw(sprite, states);
 }

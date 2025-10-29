@@ -15,7 +15,12 @@ private:
 	float speed_;
 	uint64_t ID_;
 
+	RectangleShape hitbox_;
+
+
 	void SetRotation(Vector2f direction);
+
+	void SetHitboxSize() override;
 
 public:
 	Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale,EntityType type,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID);

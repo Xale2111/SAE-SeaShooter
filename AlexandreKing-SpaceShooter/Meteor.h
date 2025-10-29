@@ -9,6 +9,9 @@ using namespace sf;
 class Meteor : public Drawable, public Transformable
 {
 private:
+	uint64_t id_;
+
+
 	Vector2f direction_;
 	float rotationDegree_;
 	float currentRotation_;
@@ -16,6 +19,7 @@ private:
 	Animation animation_;
 	ObjectState state_ = ObjectState::None;
 	Vector2f position_;
+	Vector2f scale_;
 
 public:
 	void Load(std::string spritePath);
@@ -27,6 +31,9 @@ public:
 	void SetMeteorSize(float newScale);
 	void AnimationUpdate();
 	ObjectState Move(Time deltaTime);
+	void SetId(uint64_t ID);
+	uint64_t GetId();
+
 
 protected:
 	void draw(RenderTarget& target, RenderStates states) const override;

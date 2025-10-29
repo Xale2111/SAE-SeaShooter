@@ -13,7 +13,7 @@ void MeteorManager::Load()
 
 void MeteorManager::SpawnMeteor(Time dt)
 {
-	if (spawnDelay > Random::Int(3,15))
+	if (spawnDelay > Random::Int(10,30))
 	{
 		spawnDelay = 0;
 		Meteor newMeteor;
@@ -42,8 +42,6 @@ void MeteorManager::SpawnMeteor(Time dt)
 		default:
 			newMeteor = plasticBag_;
 		}
-		std::cout << "Meteor X pos : " << positionRand;
-
 		newMeteor.SetMeteorSize(Random::Float(0.6f, 0.8f));
 		newMeteor.SetRotationDegrees(rotationSpeedRand);
 		newMeteor.SetSpeed(speedRand);
@@ -52,14 +50,28 @@ void MeteorManager::SpawnMeteor(Time dt)
 
 		newMeteor.SetDirection({ xDir,1 });
 		newMeteor.SetPosition({ positionRand,-100 });
+		newMeteor.SetId(meteorIDCounter);
 
 		allMeteors_.emplace_back(newMeteor);
+		meteorIDCounter++;
 	}
 	spawnDelay += dt.asSeconds();
 }
 
 void MeteorManager::AddRemoveMeteor(Meteor& meteorToRemove)
 {
+	removeMeteors_.push_back(meteorToRemove);
+}
+
+void MeteorManager::RemoveMeteors()
+{
+	allMeteors_.erase(std::remove_if(allMeteors_.begin(), allMeteors_.end(),
+		[&](Meteor& p) {
+			return std::any_of(removeMeteors_.begin(), removeMeteors_.end(), [&](Meteor& r) {
+				return p.GetId() == r.GetId();
+				});
+		}),
+		allMeteors_.end());
 }
 
 std::vector<Meteor>& MeteorManager::GetAllMeteors()

@@ -19,14 +19,14 @@ private:
 	ObjectState state_=ObjectState::None;
 
 	Vector2f direction_;
-
+	Angle rotation_;
 
 public:
 	void Load(std::string spritePath, float speed = 350 );
 	void SetDirection(Vector2f newDirection);
 	void SetPosition(Vector2f newPosition);
 	void CenterOrigin();
-	void SetRotation(Vector2f direction);
+	void SetRotation(bool isPlayerProjectile);
 	Vector2f GetPosition();
 	void AnimationUpdate();
 	ObjectState Move(Time deltaTime);

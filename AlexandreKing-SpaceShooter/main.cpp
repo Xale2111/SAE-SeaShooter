@@ -11,6 +11,7 @@
 #include "MeteorManager.h"
 #include "Player.h"
 #include "ProjectileManager.h"
+#include "UI.h"
 
 constexpr float winFrameRate = 60.f;
 constexpr int winWidth = 1920;
@@ -35,6 +36,8 @@ int main()
     player.Load(&projectileManager, &audioManager);
 
 
+    UI ui;
+
     Clock clock;
 
 
@@ -48,7 +51,9 @@ int main()
     mainWindow.setVerticalSyncEnabled(true);
     mainWindow.setFramerateLimit(30);
     mainWindow.setMouseCursorVisible(false);
-    
+
+    ui.Load(mainWindow);
+
 
     while (mainWindow.isOpen())
     {
@@ -80,10 +85,19 @@ int main()
             {
 	            if (mousePressed->button == Mouse::Button::Left)
 	            {
-                    player.Shoot();
-	            }   
+                    player.SetIsShooting(true);
+	            }
+            }
+            else if (const auto* mouseReleased = event->getIf<Event::MouseButtonReleased>())
+            {
+	            if (mouseReleased->button == Mouse::Button::Left)
+	            {
+                    player.SetIsShooting(false);
+	            }
             }
         }
+
+        player.Shoot(deltaTime);
 
         enemyManager.Spawn(deltaTime);
         meteorManager.SpawnMeteor(deltaTime);
@@ -131,7 +145,10 @@ int main()
                 meteorManager.AddRemoveMeteor(meteor);
             }
         }
+        meteorManager.RemoveMeteors();
 
+        //Display UI
+        mainWindow.draw(ui);
 
         // Window Display
         mainWindow.display();

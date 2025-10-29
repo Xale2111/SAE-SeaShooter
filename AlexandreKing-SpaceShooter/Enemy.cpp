@@ -12,6 +12,15 @@ void Enemy::SetRotation(Vector2f direction)
 	rotate(degrees(angleDegrees-90));
 }
 
+void Enemy::SetHitboxSize()
+{
+	Vector2f hitboxSize = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y)*spriteScale_;
+
+	hitbox_.setSize(hitboxSize);
+	hitbox_.setOrigin(Vector2f(hitboxSize.x / 2, hitboxSize.y / 2));
+	SetHitbox(&hitbox_, 1.1f);
+}
+
 Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID)
 : Entity(spritesPath, animSpeed, healthPoint, damage, spriteScale, type), shootingDelay_(shootingDelay), shootingAmount_(shootingAmount), pointValue_(pointValue), direction_(direction),speed_(speed), ID_(ID)
 {
@@ -28,7 +37,6 @@ void Enemy::Shoot()
 {
 	if (shootDeltaTime_.asSeconds() > shootingDelay_)
 	{
-	
 		projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_);
 		audioManager_->PlayLaserSoundEffect();
 		shootDeltaTime_ = Time(seconds(0));

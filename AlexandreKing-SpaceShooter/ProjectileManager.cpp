@@ -30,6 +30,7 @@ void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f
 	newProjectile.CenterOrigin();
 
 	newProjectile.SetDirection(projectileDirection);
+	entityType == EntityType::kPlayer ? newProjectile.SetRotation(true) : newProjectile.SetRotation(false);
 
 	newProjectile.SetPosition(projectileStartPosition);
 
