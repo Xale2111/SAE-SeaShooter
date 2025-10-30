@@ -23,6 +23,8 @@ void MeteorManager::SpawnMeteor(Time dt)
 		int rotationSpeedRand = Random::Int(5, 25);
 		float speedRand = Random::Float(120, 180);
 
+		ColliderType collider;
+
 		if (rotationDirectionRand == 1)
 		{
 			rotationSpeedRand *= -1;
@@ -31,12 +33,15 @@ void MeteorManager::SpawnMeteor(Time dt)
 		switch (meteorRand)
 		{
 		case 0:
+			collider = ColliderType::kBox;
 			newMeteor = plasticBag_;
 			break;
 		case 1:
+			collider = ColliderType::kBox;
 			newMeteor = plasticBottle_;
 			break;
 		case 2:
+			collider = ColliderType::kCircle;
 			newMeteor = trash_;
 			break;
 		default:
@@ -53,6 +58,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 		newMeteor.SetId(meteorIDCounter);
 
 		allMeteors_.emplace_back(newMeteor);
+		allMeteors_.back().SetCollider(collider);
 		meteorIDCounter++;
 	}
 	spawnDelay += dt.asSeconds();

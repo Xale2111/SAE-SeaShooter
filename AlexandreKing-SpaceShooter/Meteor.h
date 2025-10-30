@@ -2,9 +2,23 @@
 #include <SFML/Graphics.hpp>
 
 #include "Animation.h"
+#include "Collider.h"
+#include "CircleCollider.h"
+#include "BoxCollider.h"
+
 #include "ObjectState.h"
 
+class CircleCollider;
+class BoxCollider;
+
 using namespace sf;
+
+enum class ColliderType
+{
+	kCircle,
+	kBox
+};
+
 
 class Meteor : public Drawable, public Transformable
 {
@@ -21,6 +35,10 @@ private:
 	Vector2f position_;
 	Vector2f scale_;
 
+	Collider hitbox_;
+
+
+
 public:
 	void Load(std::string spritePath);
 	void SetDirection(Vector2f newDirection);
@@ -34,6 +52,7 @@ public:
 	void SetId(uint64_t ID);
 	uint64_t GetId();
 
+	void SetCollider(ColliderType collider);
 
 protected:
 	void draw(RenderTarget& target, RenderStates states) const override;

@@ -45,6 +45,4 @@ void Player::SetCollider(float rotation)
 
 
 	collider_ = *newCollider;
-
-
 }

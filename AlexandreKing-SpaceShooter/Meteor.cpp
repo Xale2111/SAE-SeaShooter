@@ -70,6 +70,28 @@ uint64_t Meteor::GetId()
 	return id_;
 }
 
+void Meteor::SetCollider(ColliderType colliderType)
+{
+
+	if (colliderType == ColliderType::kCircle)
+	{
+		float radius = 60.f;
+		Vector2f origin = Vector2f(getPosition().x + radius, (getPosition().y + radius / 2) + 10);
+
+		CircleCollider* newCollider = new CircleCollider();
+		newCollider->InstanciateNewCircleCollider(60.f, origin, 0.9f);
+		hitbox_ = *newCollider;
+
+	}
+	else if (colliderType == ColliderType::kBox)
+	{
+		
+	}
+
+
+
+}
+
 void Meteor::draw(RenderTarget& target, RenderStates states) const
 {
 	Texture texture = *animation_.GetTexture();
