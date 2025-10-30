@@ -30,15 +30,11 @@ private:
 	float shootingDelay = 0.15f;
 	int bulletAmount = 1;
 
-	CircleShape hitbox_;
-
-
-	void SetHitboxSize() override;
-
 public:
 	using Entity::Entity;
 	void Shoot(Time deltaTime);
 	void SetIsShooting(bool shooting);
+	void SetCollider(float rotation = 0) override;
 
 };
 

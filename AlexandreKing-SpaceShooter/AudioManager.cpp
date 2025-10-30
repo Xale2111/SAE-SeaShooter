@@ -21,7 +21,6 @@ bool AudioManager::LoadSoundEffects(std::string effect, std::vector<SoundBuffer>
 			soundEffectVector->clear();
 			return false;
 		}
-		std::cout << entry.path()<<std::endl;
 		soundEffectVector->emplace_back(entry.path());
 	}
 	return true;

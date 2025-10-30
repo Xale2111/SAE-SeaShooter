@@ -5,20 +5,14 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#include "BoxCollider.h"
+#include "CircleCollider.h"
+
 void Enemy::SetRotation(Vector2f direction)
 {
 	float angleRadians = atan2(direction.y, direction.x);
 	float angleDegrees = angleRadians * 180 / M_PI;
 	rotate(degrees(angleDegrees-90));
-}
-
-void Enemy::SetHitboxSize()
-{
-	Vector2f hitboxSize = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y)*spriteScale_;
-
-	hitbox_.setSize(hitboxSize);
-	hitbox_.setOrigin(Vector2f(hitboxSize.x / 2, hitboxSize.y / 2));
-	SetHitbox(&hitbox_, 1.1f);
 }
 
 Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID)
@@ -72,4 +66,15 @@ void Enemy::SetDeltaTime(Time deltaTime)
 {
 	shootDeltaTime_ += deltaTime;
 	moveDeltaTime_ = deltaTime;
+}
+
+void Enemy::SetCollider(float rotation)
+{
+	Vector2f hitboxSize = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y) * spriteScale_;
+
+	BoxCollider* newCollider = new BoxCollider();
+	newCollider->InstanciateNewBoxCollider(hitboxSize, 1.15f, getRotation().asDegrees());
+	
+
+	collider_ = *newCollider;
 }

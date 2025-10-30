@@ -1,14 +1,6 @@
 #include "Player.h"
 
-void Player::SetHitboxSize()
-{
-	float radius = 60.f;
-	hitbox_.setRadius(radius);
-	Vector2f origin = Vector2f(getPosition().x+radius, getPosition().y + radius/2);
-	hitbox_.setOrigin(origin);
-
-	SetHitbox(&hitbox_, 0.8f);
-}
+#include "CircleCollider.h"
 
 void Player::Shoot(Time dt)
 {
@@ -41,4 +33,18 @@ void Player::Shoot(Time dt)
 void Player::SetIsShooting(bool shooting)
 {
 	isShooting = shooting;
+}
+
+void Player::SetCollider(float rotation)
+{
+	float radius = 60.f;
+	Vector2f origin = Vector2f(getPosition().x + radius, (getPosition().y + radius / 2)+10);
+
+	CircleCollider* newCollider = new CircleCollider();
+	newCollider->InstanciateNewCircleCollider(60.f, origin, 0.9f);
+
+
+	collider_ = *newCollider;
+
+
 }

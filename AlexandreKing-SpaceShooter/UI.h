@@ -3,7 +3,7 @@
 
 using namespace sf;
 
-const std::string fontPath = "asset/font/";
+const std::string fontPath = "assets/font/";
 
 class UI : public sf::Drawable
 {

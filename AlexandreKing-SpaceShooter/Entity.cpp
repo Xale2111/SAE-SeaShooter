@@ -10,26 +10,15 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	sprite.setScale({ spriteScale_,spriteScale_ });
 
 	states.transform *= getTransform();
-	hitbox_->setPosition(getPosition());
+	collider_.SetPosition(getPosition());
 
 	target.draw(sprite, states);
-	target.draw(*hitbox_);
+	target.draw(collider_.GetHitboxRef());
 }
 
 Vector2f Entity::GetTextureSize()
 {
 	return textureSize_ * spriteScale_;
-}
-
-void Entity::SetHitbox(sf::Shape* shape, float scale)
-{
-	hitbox_ = shape;
-
-	hitbox_->setFillColor(Color(255,0,0,100));
-
-	hitbox_->scale(Vector2f(scale,scale));
-
-	hitbox_->setPosition(getPosition());
 }
 
 //Public
@@ -47,7 +36,6 @@ void Entity::Load(ProjectileManager* projectileManager, AudioManager* audioManag
 {
 	projectileManager_ = projectileManager;
 	audioManager_ = audioManager;
-	SetHitboxSize();
 }
 
 void Entity::AnimationUpdate()

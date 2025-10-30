@@ -34,6 +34,7 @@ int main()
 
     Player player("assets/sprites/Character/", 0.175,100,10,0.3f, EntityType::kPlayer);
     player.Load(&projectileManager, &audioManager);
+    player.SetCollider();
 
 
     UI ui;

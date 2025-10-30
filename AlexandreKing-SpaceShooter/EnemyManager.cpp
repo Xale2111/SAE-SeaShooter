@@ -238,8 +238,8 @@ void EnemyManager::AddEnemy(EntityType enemyType, EnemyStartPosition startPositi
 
 	newEnemy.SetPosition(GetStartPositionFromEnum(startPosition, middleSpawnPosition)+offset);
 
-
 	allEnemies_.emplace_back(newEnemy);
+	allEnemies_.back().SetCollider(newEnemy.getRotation().asDegrees());
 	enemyID++;
 
 }
