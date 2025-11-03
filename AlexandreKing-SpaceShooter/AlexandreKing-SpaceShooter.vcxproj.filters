@@ -125,5 +125,8 @@
     <ClInclude Include="CircleCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

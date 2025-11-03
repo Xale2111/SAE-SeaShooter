@@ -32,9 +32,10 @@ int main()
     MeteorManager meteorManager;
     meteorManager.Load();
 
-    Player player("assets/sprites/Character/", 0.175,100,10,0.3f, EntityType::kPlayer);
+    Player player("assets/sprites/Character/", 0.175,250,40,0.3f, EntityType::kPlayer);
     player.Load(&projectileManager, &audioManager);
     player.SetCollider();
+    player.DefineAll(&meteorManager);
 
 
     UI ui;
@@ -107,11 +108,12 @@ int main()
         mainWindow.clear(Color({ 87, 250, 215 }));
 
         //Lowest drawed item
+        //draw projectiles
 	    for (auto& projectile : projectileManager.GetAllProjectiles())
 	    {
             projectile.AnimationUpdate();
             mainWindow.draw(projectile);
-            if (projectile.Move(deltaTime) == ObjectState::Destroyed)
+            if (projectile.Move(deltaTime) == ObjectState::kDestroyed)
             {
                 projectileManager.AddProjectileToRemoveList(&projectile);
             }
@@ -127,10 +129,20 @@ int main()
         	enemy.Move();
             mainWindow.draw(enemy);
             enemy.Shoot();
+            enemy.DetectCollision();
+            if (enemy.GetState() == ObjectState::kDestroyed)
+            {
+                player.AddScore(enemy.GetPointValue());
+                enemyManager.AddEnemyToRemove(enemy);
+                audioManager.PlayExplosionSoundEffect();
+            }
         }
+
+        enemyManager.RemoveEnemies();
 
         //third layer
         player.AnimationUpdate();
+        player.DetectCollision();
         mainWindow.draw(player);
 
         //Top layer
@@ -141,7 +153,7 @@ int main()
             mainWindow.draw(meteor);
             meteor.IncreaseRotation();
 
-        	if (meteor.Move(deltaTime) == ObjectState::Destroyed)
+        	if (meteor.Move(deltaTime) == ObjectState::kDestroyed)
             {
                 meteorManager.AddRemoveMeteor(meteor);
             }

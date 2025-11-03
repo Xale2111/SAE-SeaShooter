@@ -1,18 +1,20 @@
 #include "Enemy.h"
 
-#include <iostream>
-
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "BoxCollider.h"
-#include "CircleCollider.h"
 
 void Enemy::SetRotation(Vector2f direction)
 {
 	float angleRadians = atan2(direction.y, direction.x);
 	float angleDegrees = angleRadians * 180 / M_PI;
 	rotate(degrees(angleDegrees-90));
+}
+
+void Enemy::Destroy()
+{
+	state_ = ObjectState::kDestroyed;
 }
 
 Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID)
@@ -24,6 +26,7 @@ Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int dama
 	direction_ = direction;
 	speed_ = speed;
 	ID_ = ID;
+	layer_ = ObjectLayer::kEnemy;
 }
 
 
@@ -31,7 +34,7 @@ void Enemy::Shoot()
 {
 	if (shootDeltaTime_.asSeconds() > shootingDelay_)
 	{
-		projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_);
+		projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_, damage_);
 		audioManager_->PlayLaserSoundEffect();
 		shootDeltaTime_ = Time(seconds(0));
 	}
@@ -57,10 +60,6 @@ void Enemy::SetDirection(Vector2f newDirection)
 	SetRotation(direction_);
 }
 
-void Enemy::SetID(uint64_t newID)
-{
-	ID_ = newID;
-}
 
 void Enemy::SetDeltaTime(Time deltaTime)
 {
@@ -74,7 +73,44 @@ void Enemy::SetCollider(float rotation)
 
 	BoxCollider* newCollider = new BoxCollider();
 	newCollider->InstanciateNewBoxCollider(hitboxSize, 1.15f, getRotation().asDegrees());
-	
 
 	collider_ = *newCollider;
+}
+
+ObjectState Enemy::GetState()
+{
+	return state_;
+}
+
+void Enemy::SetID(uint64_t newID)
+{
+	ID_ = newID;
+}
+uint64_t Enemy::GetID()
+{
+	return ID_;
+}
+
+int Enemy::GetPointValue()
+{
+	return pointValue_;
+}
+
+void Enemy::DetectCollision()
+{
+	for (auto& projectile : projectileManager_->GetAllProjectiles())
+	{
+		if (projectile.GetLayer() == ObjectLayer::kPlayerProjectile)
+		{
+			if (collider_.GetHitboxRef().getGlobalBounds().findIntersection(projectile.GetHitbox().GetHitboxRef().getGlobalBounds()))
+			{
+				projectile.Destroy();
+				TakeDamage(projectile.GetDamage());
+				if (GetHealthPoints() <= 0)
+				{
+					Destroy();
+				}
+			}
+		}
+	}
 }

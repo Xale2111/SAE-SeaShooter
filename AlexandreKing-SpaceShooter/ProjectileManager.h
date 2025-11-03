@@ -17,7 +17,7 @@ private:
 	std::vector<Projectile> projectilesToRemove_;
 public:
 	void Load();
-	void AddProjectile(Vector2f projectileStartPosition, Vector2f projectileDirection, EntityType entityType);
+	void AddProjectile(Vector2f projectileStartPosition, Vector2f projectileDirection, EntityType entityType, int damage);
 	void AddProjectileToRemoveList(Projectile* projectileToDestroy);
 	void RemoveProjectiles();
 	std::vector<Projectile>& GetAllProjectiles();

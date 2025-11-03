@@ -172,7 +172,6 @@ void EnemyManager::Spawn(Time dt)
 			waveDelay = milliseconds(0);
 			currentWaveIndex_++;
 		}
-		//TODO : add enemy with pattern based on formation
 	}
 }
 
@@ -242,6 +241,22 @@ void EnemyManager::AddEnemy(EntityType enemyType, EnemyStartPosition startPositi
 	allEnemies_.back().SetCollider(newEnemy.getRotation().asDegrees());
 	enemyID++;
 
+}
+
+void EnemyManager::AddEnemyToRemove(Enemy& enemyToRemove)
+{
+	removeEnemies_.push_back(enemyToRemove);
+}
+
+void EnemyManager::RemoveEnemies()
+{
+	allEnemies_.erase(std::remove_if(allEnemies_.begin(), allEnemies_.end(),
+		[&](Enemy& p) {
+			return std::any_of(removeEnemies_.begin(), removeEnemies_.end(), [&](Enemy& r) {
+				return p.GetID() == r.GetID();
+				});
+		}),
+		allEnemies_.end());
 }
 
 std::vector<Enemy>& EnemyManager::GetAllEnemies()

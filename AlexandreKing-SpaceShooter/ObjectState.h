@@ -2,7 +2,7 @@
 
 enum class ObjectState
 {
-	None,
-	Moving,
-	Destroyed
+	kNone,
+	kMoving,
+	kDestroyed
 };

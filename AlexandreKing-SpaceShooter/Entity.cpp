@@ -13,7 +13,6 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	collider_.SetPosition(getPosition());
 
 	target.draw(sprite, states);
-	target.draw(collider_.GetHitboxRef());
 }
 
 Vector2f Entity::GetTextureSize()
@@ -42,4 +41,14 @@ void Entity::AnimationUpdate()
 {
 	animation_.Update();
 	textureSize_ = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y);
+}
+
+void Entity::TakeDamage(int damage)
+{
+	healthPoints_ -= damage;
+}
+
+int Entity::GetHealthPoints()
+{
+	return healthPoints_;
 }

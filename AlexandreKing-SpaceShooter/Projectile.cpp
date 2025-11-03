@@ -1,11 +1,12 @@
 #include "Projectile.h"
 #include <corecrt_math_defines.h>
 
-void Projectile::Load(std::string spritePath, float speed)
+void Projectile::Load(std::string spritePath, ObjectLayer layer,float speed)
 {
 	animation_.Load(spritePath, 0.05f);
 	CenterOrigin();
 	speed_ = speed;
+	layer_ = layer;
 }
 
 void Projectile::SetDirection(Vector2f newDirection)
@@ -42,6 +43,23 @@ void Projectile::SetRotation(bool isPlayerProjectile)
 	rotation_ = degrees(angleDegrees-90);
 }
 
+void Projectile::SetCollider()
+{
+	BoxCollider* newHitbox = new BoxCollider;
+	newHitbox->InstanciateNewBoxCollider(Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y),1.f, rotation_.asDegrees());
+	hitbox_ = *newHitbox;
+}
+
+void Projectile::SetDamage(int damage)
+{
+	projectileDamage_ = damage;
+}
+
+int Projectile::GetDamage()
+{
+	return projectileDamage_;
+}
+
 Vector2f Projectile::GetPosition()
 {
 	return position_;
@@ -55,14 +73,14 @@ void Projectile::AnimationUpdate()
 ObjectState Projectile::Move(Time dt)
 {
 
-	if (state_ != ObjectState::Destroyed)
+	if (state_ != ObjectState::kDestroyed)
 	{
-		state_ = ObjectState::Moving;
+		state_ = ObjectState::kMoving;
 		SetPosition(position_ + direction_ * speed_ * dt.asSeconds());
 	}
 	if (GetPosition().y <-500 || GetPosition().y>2020)
 	{
-		state_ = ObjectState::Destroyed;
+		Destroy();
 	}
 	return state_;
 
@@ -78,6 +96,21 @@ uint64_t Projectile::GetID()
 	return id_;
 }
 
+ObjectLayer Projectile::GetLayer()
+{
+	return layer_;
+}
+
+Collider Projectile::GetHitbox()
+{
+	return hitbox_;
+}
+
+void Projectile::Destroy()
+{
+	state_ = ObjectState::kDestroyed;
+}
+
 void Projectile::draw(RenderTarget& target, RenderStates states) const
 {
 	Texture texture = *animation_.GetTexture();
@@ -85,6 +118,8 @@ void Projectile::draw(RenderTarget& target, RenderStates states) const
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setPosition(position_);
 	sprite.setRotation(rotation_);
+
+	hitbox_.SetPosition(position_);
 
 	target.draw(sprite, states);
 }

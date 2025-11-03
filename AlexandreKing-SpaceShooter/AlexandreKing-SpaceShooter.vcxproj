@@ -164,6 +164,7 @@
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WaveSegment.h" />
   </ItemGroup>

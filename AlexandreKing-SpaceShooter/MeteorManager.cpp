@@ -22,6 +22,8 @@ void MeteorManager::SpawnMeteor(Time dt)
 		int rotationDirectionRand = Random::Int(0, 1);
 		int rotationSpeedRand = Random::Int(5, 25);
 		float speedRand = Random::Float(120, 180);
+		float scale = Random::Float(0.6f, 0.8f);
+
 
 		ColliderType collider;
 
@@ -47,7 +49,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 		default:
 			newMeteor = plasticBag_;
 		}
-		newMeteor.SetMeteorSize(Random::Float(0.6f, 0.8f));
+		newMeteor.SetMeteorSize(scale);
 		newMeteor.SetRotationDegrees(rotationSpeedRand);
 		newMeteor.SetSpeed(speedRand);
 
@@ -58,7 +60,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 		newMeteor.SetId(meteorIDCounter);
 
 		allMeteors_.emplace_back(newMeteor);
-		allMeteors_.back().SetCollider(collider);
+		allMeteors_.back().SetCollider(collider,scale);
 		meteorIDCounter++;
 	}
 	spawnDelay += dt.asSeconds();

@@ -7,6 +7,8 @@
 #include "BoxCollider.h"
 
 #include "ObjectState.h"
+#include "ObjectLayer.h"
+
 
 class CircleCollider;
 class BoxCollider;
@@ -25,19 +27,18 @@ class Meteor : public Drawable, public Transformable
 private:
 	uint64_t id_;
 
-
 	Vector2f direction_;
 	float rotationDegree_;
 	float currentRotation_;
 	float speed_;
 	Animation animation_;
-	ObjectState state_ = ObjectState::None;
+	ObjectState state_ = ObjectState::kNone;
 	Vector2f position_;
 	Vector2f scale_;
 
+	ObjectLayer layer_;
+
 	Collider hitbox_;
-
-
 
 public:
 	void Load(std::string spritePath);
@@ -52,7 +53,12 @@ public:
 	void SetId(uint64_t ID);
 	uint64_t GetId();
 
-	void SetCollider(ColliderType collider);
+	void SetCollider(ColliderType collider, float scales);
+
+	Collider GetHitbox();
+	ObjectLayer GetLayer();
+
+	void Destroy();
 
 protected:
 	void draw(RenderTarget& target, RenderStates states) const override;

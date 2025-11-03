@@ -2,6 +2,7 @@
 #include <numbers>
 
 #include "Entity.h"
+#include "MeteorManager.h"
 #include "Projectile.h"
 #include "ProjectileManager.h"
 constexpr float angle1 = 12.5;
@@ -27,14 +28,25 @@ private:
 	bool isShooting = false;
 
 	Time deltaTime;
-	float shootingDelay = 0.15f;
+	float shootingDelay = 0.2f;
 	int bulletAmount = 1;
+
+	MeteorManager* meteorManager_;
+
+	void DefineLayer();
+	void DefineMeteorManager(MeteorManager* manager);
+
+	void UpgradeWithScore();
 
 public:
 	using Entity::Entity;
+	void DefineAll(MeteorManager* manager);
 	void Shoot(Time deltaTime);
 	void SetIsShooting(bool shooting);
 	void SetCollider(float rotation = 0) override;
+	void DetectCollision() override;
+
+	void AddScore(int pointGained);
 
 };
 

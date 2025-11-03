@@ -11,6 +11,7 @@ class EnemyManager
 {
 private:
 	std::vector<Enemy> allEnemies_;
+	std::vector<Enemy> removeEnemies_;
 
 	//first pair = enemy difficulty and formation, float is the delay between two enemy spawning
 	std::vector<WaveSegment> enemyWavePrediction;
@@ -51,6 +52,10 @@ public:
 	//Spawn enemy at random possible position
 	void CreateFormation(WaveSegment segment);
 	void AddEnemy(EntityType enemyType, EnemyStartPosition startPosition, Vector2f offset = { 0,0 }, int middleSpawnPosition = -1);
+
+	void AddEnemyToRemove(Enemy& enemyToRemove);
+	void RemoveEnemies();
+
 	std::vector<Enemy>& GetAllEnemies();
 
 

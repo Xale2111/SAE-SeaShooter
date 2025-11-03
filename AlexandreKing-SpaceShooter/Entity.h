@@ -7,18 +7,22 @@
 #include "ProjectileManager.h"
 
 #include "EntityType.h"
+#include "ObjectLayer.h"
+
 
 class Entity : public sf::Transformable, public sf::Drawable
 {
 private:
 	int healthPoints_;
-	int damage_;
 	sf::Vector2f textureSize_;
 
 protected:
+	int damage_;
 	EntityType type_;
 	float spriteScale_;
 	Animation animation_;
+
+	ObjectLayer layer_;
 
 	Collider collider_;
 
@@ -33,9 +37,8 @@ public:
 	Entity(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type);
 	void Load(ProjectileManager* projectileManager, AudioManager* audioManager);
 	void AnimationUpdate();
-	void Destroy();
-	void TakeDamage();
-
-
+	void TakeDamage(int damage);
+	int GetHealthPoints();
+	virtual void DetectCollision() = 0;
 };
 

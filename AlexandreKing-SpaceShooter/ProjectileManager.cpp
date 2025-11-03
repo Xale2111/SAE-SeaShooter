@@ -2,13 +2,13 @@
 
 void ProjectileManager::Load()
 {
-	playerProjectile_.Load(PROJECTILE_SPRITES_PATH + "player");
-	enemyProjectile_.Load(PROJECTILE_SPRITES_PATH + "enemy/all");
-	hardEnemyProjectile_.Load(PROJECTILE_SPRITES_PATH+"enemy/hard");
+	playerProjectile_.Load(PROJECTILE_SPRITES_PATH + "player", ObjectLayer::kPlayerProjectile);
+	enemyProjectile_.Load(PROJECTILE_SPRITES_PATH + "enemy/all",ObjectLayer::kEnemyProjectile);
+	hardEnemyProjectile_.Load(PROJECTILE_SPRITES_PATH+"enemy/hard", ObjectLayer::kEnemyProjectile);
 }
 
 
-void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f projectileDirection, EntityType entityType)
+void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f projectileDirection, EntityType entityType, int damage)
 {
 	Projectile newProjectile;
 	switch (entityType)
@@ -35,8 +35,10 @@ void ProjectileManager::AddProjectile(Vector2f projectileStartPosition, Vector2f
 	newProjectile.SetPosition(projectileStartPosition);
 
     newProjectile.SetID(projectileCounter++);
+	newProjectile.SetDamage(damage);
 
 	allProjectiles_.emplace_back(newProjectile);
+	allProjectiles_.back().SetCollider();
 }
 
 void ProjectileManager::AddProjectileToRemoveList(Projectile* projectileToDestroy)
