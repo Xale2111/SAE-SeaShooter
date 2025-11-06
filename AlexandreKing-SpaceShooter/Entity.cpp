@@ -4,7 +4,7 @@
 //Protected
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	sf::Texture texture = *animation_.GetTexture();
+	sf::Texture texture = animation_->GetTexture();
 	sf::Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setScale({ spriteScale_,spriteScale_ });
@@ -13,7 +13,6 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	collider_.SetPosition(getPosition());
 
 	target.draw(sprite, states);
-	target.draw(collider_.GetHitboxRef());
 }
 
 Vector2f Entity::GetTextureSize()
@@ -21,12 +20,28 @@ Vector2f Entity::GetTextureSize()
 	return textureSize_ * spriteScale_;
 }
 
+void Entity::SetAnimation(Animation& newAnimation, int textureIndex)
+{
+	animation_ = &newAnimation;
+	animation_->SetIndex(textureIndex);
+}
+
+int Entity::GetAnimationIndex()
+{
+	return  animation_->GetIndex();
+}
+
+
+const Texture& Entity::GetAnimationTexture() const
+{
+	return animation_->GetTexture();
+}
+
 //Public
-Entity::Entity(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type)
+Entity::Entity(int healthPoint, int damage, float spriteScale, EntityType type)
 {
 	healthPoints_ = healthPoint;
 	damage_ = damage;
-	animation_.Load(spritesPath, animSpeed);
 	textureSize_ = {0,0};
 	spriteScale_ = spriteScale;
 	type_ = type;
@@ -40,8 +55,8 @@ void Entity::Load(ProjectileManager* projectileManager, AudioManager* audioManag
 
 void Entity::AnimationUpdate()
 {
-	animation_.Update();
-	textureSize_ = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y);
+	animation_->Update();
+	textureSize_ = Vector2f(animation_->GetTexture().getSize().x, animation_->GetTexture().getSize().y);
 }
 
 void Entity::TakeDamage(int damage)

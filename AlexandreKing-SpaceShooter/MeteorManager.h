@@ -14,6 +14,7 @@ private:
 	Meteor plasticBag_;
 	Meteor plasticBottle_;
 	Meteor trash_;
+	Meteor louis_;
 
 	float spawnDelay = 3;
 

@@ -146,9 +146,13 @@ Vector2f EnemyManager::GetDirectionFromStartPosition(EnemyStartPosition startPos
 EnemyManager::EnemyManager(ProjectileManager& projectile_manager, AudioManager& audio_manager) : enemyID(0)
 {
 	easyEnemy_.Load(&projectile_manager, &audio_manager);
+	easyEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "easy/", 0.2f);
 	mediumEnemy_.Load(&projectile_manager, &audio_manager);
+	mediumEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "medium/", 0.2f);
 	hardEnemy_.Load(&projectile_manager, &audio_manager);
+	hardEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "hard/", 0.2f);
 	hardcoreEnemy_.Load(&projectile_manager, &audio_manager);
+	hardcoreEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "hardcore/", 0.2);
 }
 
 void EnemyManager::SetAllWaves()

@@ -58,8 +58,7 @@ void AudioManager::SetDefaultBackgroundMusic()
 	if (allMusics.size() >0)
 	{
 		currentBackgroundMusic_ = allMusics[0];
-		//TODO:put volume to 50 as default value
-		currentBackgroundMusic_->setVolume(0);
+		currentBackgroundMusic_->setVolume(50);
 		currentBackgroundMusic_->play();
 	}
 }

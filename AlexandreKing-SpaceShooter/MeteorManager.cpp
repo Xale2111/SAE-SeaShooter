@@ -9,6 +9,7 @@ void MeteorManager::Load()
 	plasticBag_.Load(METEOR_SPRITES_PATH + "/bag");
 	plasticBottle_.Load(METEOR_SPRITES_PATH + "/bottle");
 	trash_.Load(METEOR_SPRITES_PATH + "/trash");
+	louis_.Load(METEOR_SPRITES_PATH + "/louis");
 }
 
 void MeteorManager::SpawnMeteor(Time dt)
@@ -17,7 +18,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 	{
 		spawnDelay = 0;
 		Meteor newMeteor;
-		int meteorRand = Random::Int(0, 2);
+		int meteorRand = Random::Int(0, 3);
 		float positionRand = Random::Float(0, 1920);
 		int rotationDirectionRand = Random::Int(0, 1);
 		int rotationSpeedRand = Random::Int(5, 25);
@@ -45,6 +46,11 @@ void MeteorManager::SpawnMeteor(Time dt)
 		case 2:
 			collider = ColliderType::kCircle;
 			newMeteor = trash_;
+			break;
+		case 3:
+			collider = ColliderType::kCircle;
+			newMeteor = louis_;
+			scale *= 0.8f;
 			break;
 		default:
 			newMeteor = plasticBag_;

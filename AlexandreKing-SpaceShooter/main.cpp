@@ -32,10 +32,10 @@ int main()
     MeteorManager meteorManager;
     meteorManager.Load();
 
-    Player player("assets/sprites/Character/", 0.175,250,40,0.2f, EntityType::kPlayer);
+    Player player(250,40,0.2f, EntityType::kPlayer);
     player.Load(&projectileManager, &audioManager);
     player.SetCollider();
-    player.DefineAll(&meteorManager);
+    player.DefineAll(&meteorManager, "assets/sprites/character/normal", 0.175f,"assets/sprites/character/invincible",0.1f);
 
     UI ui;
 
@@ -139,6 +139,7 @@ int main()
         //third layer
         player.AnimationUpdate();
         player.DetectCollision();
+        player.MakePlayerInvicible(deltaTime);
         mainWindow.draw(player);
 
         //Top layer

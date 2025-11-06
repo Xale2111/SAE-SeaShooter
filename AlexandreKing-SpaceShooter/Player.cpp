@@ -26,10 +26,19 @@ void Player::UpgradeWithScore()
 	}
 }
 
-void Player::DefineAll(MeteorManager* manager)
+void Player::ResetInvicibility()
+{
+	invicibilityTime = invicibilityTime.Zero;
+}
+
+void Player::DefineAll(MeteorManager* manager, std::string normalSpritesPath, float normalSpeed, std::string invincibleSpritesPath, float invincibleSpeed)
 {
 	DefineLayer();
 	DefineMeteorManager(manager);
+	normalAnimation_.Load(normalSpritesPath, normalSpeed);
+	invincibleAnimation_.Load(invincibleSpritesPath, invincibleSpeed);
+	SetAnimation(normalAnimation_, 0);
+	invicibilityTime += seconds(5);
 }
 
 void Player::Shoot(Time dt)
@@ -81,31 +90,52 @@ void Player::SetCollider(float rotation)
 
 void Player::DetectCollision()
 {
-	for (auto& projectile : projectileManager_->GetAllProjectiles())
+	if (!isInvicible)
 	{
-		if (projectile.GetLayer() == ObjectLayer::kEnemyProjectile)
+		for (auto& projectile : projectileManager_->GetAllProjectiles())
 		{
-			if (collider_.GetHitboxRef().getGlobalBounds().findIntersection(projectile.GetHitbox().GetHitboxRef().getGlobalBounds()))
+			if (projectile.GetLayer() == ObjectLayer::kEnemyProjectile)
 			{
-				projectile.Destroy();
-				TakeDamage(projectile.GetDamage());
+				if (collider_.GetHitboxRef().getGlobalBounds().findIntersection(projectile.GetHitbox().GetHitboxRef().getGlobalBounds()))
+				{
+					projectile.Destroy();
+					TakeDamage(projectile.GetDamage());
+					isInvicible = true;
+					ResetInvicibility();
+				}
 			}
 		}
-	}
-	for (auto& meteor : meteorManager_->GetAllMeteors())
-	{
-		if (meteor.GetLayer() == ObjectLayer::kMeteor)
+		for (auto& meteor : meteorManager_->GetAllMeteors())
 		{
-			if (collider_.GetHitboxRef().getGlobalBounds().findIntersection(meteor.GetHitbox().GetHitboxRef().getGlobalBounds()))
+			if (meteor.GetLayer() == ObjectLayer::kMeteor)
 			{
-				meteor.Destroy();
-				TakeDamage(20);
-				audioManager_->PlayCollisionSoundEffect();
+				if (collider_.GetHitboxRef().getGlobalBounds().findIntersection(meteor.GetHitbox().GetHitboxRef().getGlobalBounds()))
+				{
+					meteor.Destroy();
+					TakeDamage(20);
+					audioManager_->PlayCollisionSoundEffect();
+					isInvicible = true;
+					ResetInvicibility();
+				}
 			}
 		}
 	}
 }
 
+
+void Player::MakePlayerInvicible(Time deltaTime)
+{
+	if (invicibilityTime.asSeconds() < invicibilityDelay)
+	{
+		SetAnimation(invincibleAnimation_, GetAnimationIndex());
+	}
+	else
+	{
+		SetAnimation(normalAnimation_, GetAnimationIndex());
+		isInvicible = false;
+	}
+	invicibilityTime += deltaTime;
+}
 
 void Player::AddScore(int pointGained)
 {

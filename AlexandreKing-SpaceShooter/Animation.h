@@ -24,9 +24,10 @@ public:
 	void Play();
 	void Pause();
 
-	const sf::Texture* GetTexture() const;
+	const sf::Texture& GetTexture() const;
 
-	void OnEnd();
+	void SetIndex(int index);
+	int GetIndex();
 
 	const void Update();
 	const bool IsPlaying();

@@ -25,14 +25,13 @@ void Projectile::SetPosition(Vector2f newPosition)
 void Projectile::CenterOrigin()
 {
 	//Set the origin based on the texture
-	if (animation_.GetTexture())
-	{
-		Vector2f newOrigin{
-			static_cast<float>(animation_.GetTexture()->getSize().x) / 2.f,
-			static_cast<float>(animation_.GetTexture()->getSize().y) / 2.f
-		};
-		setOrigin(newOrigin);
-	}
+
+	Vector2f newOrigin{
+		static_cast<float>(animation_.GetTexture().getSize().x) / 2.f,
+		static_cast<float>(animation_.GetTexture().getSize().y) / 2.f
+	};
+	setOrigin(newOrigin);
+
 }
 
 void Projectile::SetRotation(bool isPlayerProjectile)
@@ -46,7 +45,7 @@ void Projectile::SetRotation(bool isPlayerProjectile)
 void Projectile::SetCollider()
 {
 	BoxCollider* newHitbox = new BoxCollider;
-	newHitbox->InstanciateNewBoxCollider(Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y),1.f, rotation_.asDegrees());
+	newHitbox->InstanciateNewBoxCollider(Vector2f(animation_.GetTexture().getSize().x, animation_.GetTexture().getSize().y),1.f, rotation_.asDegrees());
 	hitbox_ = *newHitbox;
 }
 
@@ -113,7 +112,7 @@ void Projectile::Destroy()
 
 void Projectile::draw(RenderTarget& target, RenderStates states) const
 {
-	Texture texture = *animation_.GetTexture();
+	Texture texture = animation_.GetTexture();
 	Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setPosition(position_);

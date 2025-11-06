@@ -17,8 +17,8 @@ void Enemy::Destroy()
 	state_ = ObjectState::kDestroyed;
 }
 
-Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale, EntityType type, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID)
-: Entity(spritesPath, animSpeed, healthPoint, damage, spriteScale, type), shootingDelay_(shootingDelay), shootingAmount_(shootingAmount), pointValue_(pointValue), direction_(direction),speed_(speed), ID_(ID)
+Enemy::Enemy(int healthPoint, int damage, float spriteScale, EntityType type, float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID)
+: Entity(healthPoint, damage, spriteScale, type), shootingDelay_(shootingDelay), shootingAmount_(shootingAmount), pointValue_(pointValue), direction_(direction),speed_(speed), ID_(ID)
 {
 	shootingDelay_ = shootingDelay;
 	shootingAmount_ = shootingAmount;
@@ -29,12 +29,33 @@ Enemy::Enemy(std::string spritesPath, float animSpeed, int healthPoint, int dama
 	layer_ = ObjectLayer::kEnemy;
 }
 
+void Enemy::DefineAnimation(std::string spritePath, float animationSpeed)
+{
+	normalAnimation_.Load(spritePath, animationSpeed);
+	SetAnimation(normalAnimation_, 0);
+}
 
 void Enemy::Shoot()
 {
 	if (shootDeltaTime_.asSeconds() > shootingDelay_)
 	{
-		projectileManager_->AddProjectile({ getPosition().x, getPosition().y}, direction_, type_, damage_);
+		if (shootingAmount_ >= 1)
+		{
+			//Center Laser
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, direction_, type_, damage_);
+		}
+		if (shootingAmount_ >= 3)
+		{
+			//first side lasers
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, direction_-leftDir1, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, direction_ - rightDir1, type_, damage_);
+		}
+		if (shootingAmount_ >= 5)
+		{
+			//second side lasers
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, direction_ - leftDir2, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, direction_ - rightDir2, type_, damage_);
+		}
 		audioManager_->PlayLaserSoundEffect();
 		shootDeltaTime_ = Time(seconds(0));
 	}
@@ -69,7 +90,7 @@ void Enemy::SetDeltaTime(Time deltaTime)
 
 void Enemy::SetCollider(float rotation)
 {
-	Vector2f hitboxSize = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y) * spriteScale_;
+	Vector2f hitboxSize = Vector2f(GetAnimationTexture().getSize().x, GetAnimationTexture().getSize().y) * spriteScale_;
 
 	BoxCollider* newCollider = new BoxCollider();
 	newCollider->InstanciateNewBoxCollider(hitboxSize, 1.15f, getRotation().asDegrees());

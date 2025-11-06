@@ -6,7 +6,7 @@
 void Meteor::Load(std::string spritePath)
 {
 	animation_.Load(spritePath,1);
-	setOrigin({ static_cast<float>(animation_.GetTexture()->getSize().x / 2), static_cast<float>(animation_.GetTexture()->getSize().y / 2) });
+	setOrigin({ static_cast<float>(animation_.GetTexture().getSize().x / 2), static_cast<float>(animation_.GetTexture().getSize().y / 2) });
 	layer_ = ObjectLayer::kMeteor;
 }
 
@@ -84,7 +84,7 @@ void Meteor::SetCollider(ColliderType colliderType, float scale)
 	}
 	else if (colliderType == ColliderType::kBox)
 	{
-		Vector2f hitboxSize = Vector2f(animation_.GetTexture()->getSize().x, animation_.GetTexture()->getSize().y) * scale;
+		Vector2f hitboxSize = Vector2f(animation_.GetTexture().getSize().x, animation_.GetTexture().getSize().y) * scale;
 
 		BoxCollider* newCollider = new BoxCollider();
 		newCollider->InstanciateNewBoxCollider(hitboxSize, 0.9f, getRotation().asDegrees());
@@ -109,7 +109,7 @@ void Meteor::Destroy()
 
 void Meteor::draw(RenderTarget& target, RenderStates states) const
 {
-	Texture texture = *animation_.GetTexture();
+	Texture texture = animation_.GetTexture();
 	Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setPosition(position_);

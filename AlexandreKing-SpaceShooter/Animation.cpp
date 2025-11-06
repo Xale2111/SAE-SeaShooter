@@ -75,14 +75,24 @@ void Animation::Pause()
 	isPlaying_ = false;
 }
 
-const sf::Texture* Animation::GetTexture() const
+const sf::Texture& Animation::GetTexture() const
 {
 	if (textures_.size() > 0)
 	{
-		return &textures_[idxTextures_];
+		return textures_[idxTextures_];
 	}
 
-	return &defaultTexture_;
+	return defaultTexture_;
+}
+
+void Animation::SetIndex(int index)
+{
+	idxTextures_ = index;
+}
+
+int Animation::GetIndex()
+{
+	return idxTextures_;
 }
 
 const bool Animation::IsPlaying()

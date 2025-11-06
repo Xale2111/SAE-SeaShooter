@@ -17,12 +17,15 @@ private:
 	float speed_;
 	uint64_t ID_;
 
+	Animation normalAnimation_;
+
 	ObjectState state_ = ObjectState::kNone;
 
 	void SetRotation(Vector2f direction);
 	void Destroy();
 public:
-	Enemy(std::string spritesPath, float animSpeed, int healthPoint, int damage, float spriteScale,EntityType type,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID);
+	Enemy(int healthPoint, int damage, float spriteScale,EntityType type,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID);
+	void DefineAnimation(std::string spritePath, float animationSpeed);
 	void Shoot();
 	void Move();
 	void SetPosition(Vector2f newPosition);
