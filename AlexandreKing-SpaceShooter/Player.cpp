@@ -41,19 +41,20 @@ void Player::Shoot(Time dt)
 		if (bulletAmount >= 1)
 		{
 			//Center Laser
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, { 0,-1 }, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x+20, getPosition().y }, { 0,-1 }, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x-20, getPosition().y }, { 0,-1 }, type_, damage_);
 		}
 		if (bulletAmount >= 3)
 		{
 			//first side lasers
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, leftDir1, type_, damage_);
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, rightDir1, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x+10, getPosition().y }, leftDir1, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x-10, getPosition().y }, rightDir1, type_, damage_);
 		}
 		if (bulletAmount >= 5)
 		{
 			//second side lasers
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, leftDir2, type_, damage_);
-			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, rightDir2, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x+10, getPosition().y }, leftDir2, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x-10, getPosition().y }, rightDir2, type_, damage_);
 		}
 		audioManager_->PlayLaserSoundEffect();
 	}
@@ -67,11 +68,12 @@ void Player::SetIsShooting(bool shooting)
 
 void Player::SetCollider(float rotation)
 {
-	float radius = 60.f;
-	Vector2f origin = Vector2f(getPosition().x + radius, (getPosition().y + radius / 2)+10);
+	//if player scale is 1f, radius is 150.f
+	float radius = 150.f * spriteScale_;
+	Vector2f origin = Vector2f(getPosition().x + radius, (getPosition().y + radius / 2));
 
 	CircleCollider* newCollider = new CircleCollider();
-	newCollider->InstanciateNewCircleCollider(60.f, origin, 0.9f);
+	newCollider->InstanciateNewCircleCollider(radius, origin, 0.8f);
 
 
 	collider_ = *newCollider;

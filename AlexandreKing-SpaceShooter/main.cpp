@@ -32,11 +32,10 @@ int main()
     MeteorManager meteorManager;
     meteorManager.Load();
 
-    Player player("assets/sprites/Character/", 0.175,250,40,0.3f, EntityType::kPlayer);
+    Player player("assets/sprites/Character/", 0.175,250,40,0.2f, EntityType::kPlayer);
     player.Load(&projectileManager, &audioManager);
     player.SetCollider();
     player.DefineAll(&meteorManager);
-
 
     UI ui;
 
@@ -49,9 +48,6 @@ int main()
     mainWindow.setVerticalSyncEnabled(true);
     mainWindow.setFramerateLimit(winFrameRate);
 	mainWindow.setPosition({ 0,0 });
-
-    mainWindow.setVerticalSyncEnabled(true);
-    mainWindow.setFramerateLimit(30);
     mainWindow.setMouseCursorVisible(false);
 
     ui.Load(mainWindow);

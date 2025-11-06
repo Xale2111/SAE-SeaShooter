@@ -13,6 +13,7 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	collider_.SetPosition(getPosition());
 
 	target.draw(sprite, states);
+	target.draw(collider_.GetHitboxRef());
 }
 
 Vector2f Entity::GetTextureSize()
