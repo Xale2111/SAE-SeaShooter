@@ -62,3 +62,10 @@ std::vector<Projectile>& ProjectileManager::GetAllProjectiles()
 {
 	return  allProjectiles_;
 }
+
+void ProjectileManager::Reset()
+{
+	projectileCounter = 0;
+	allProjectiles_.clear();
+	projectilesToRemove_.clear();
+}

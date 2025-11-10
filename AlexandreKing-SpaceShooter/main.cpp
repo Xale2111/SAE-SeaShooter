@@ -24,7 +24,6 @@ int main()
     GameWindow gameWindow;
     gameWindow.Load();
 
-
     MenuWindow menuWindow;
     menuWindow.Load();
 
@@ -33,11 +32,18 @@ int main()
 	    switch (actionCode)
 	    {
 	    case (int)ActionCodes::kDisplayMenu:
+            menuWindow.CreateWindow();
             actionCode = menuWindow.Display();
             break;
 	    case (int)ActionCodes::kPlay:
             gameWindow.Start();
             gameWindow.Play();
+            if (!gameWindow.WindowIsOpen())
+            {
+                actionCode = (int)ActionCodes::kDisplayMenu;
+                gameWindow.ResetGame();
+            }
+
             break;
 	    case (int)ActionCodes::kQuit:
             isRunning = false;

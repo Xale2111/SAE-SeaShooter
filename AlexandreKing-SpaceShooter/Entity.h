@@ -56,6 +56,8 @@ protected:
 	int GetAnimationIndex();
 	const Texture& GetAnimationTexture() const;
 
+	void ResetHealthPoint(int defaultHP);
+
 
 public:
 	Entity(int healthPoint, int damage, float spriteScale, EntityType type);

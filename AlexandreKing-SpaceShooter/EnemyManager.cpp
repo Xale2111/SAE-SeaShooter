@@ -268,4 +268,12 @@ std::vector<Enemy>& EnemyManager::GetAllEnemies()
 	return allEnemies_;
 }
 
+void EnemyManager::Reset()
+{
+	allEnemies_.clear(); 
+	removeEnemies_.clear();
+	enemyID = 0 ;
+	currentWaveIndex_ = 0;
+}
+
 

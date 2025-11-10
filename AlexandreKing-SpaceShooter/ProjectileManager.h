@@ -22,5 +22,6 @@ public:
 	void RemoveProjectiles();
 	std::vector<Projectile>& GetAllProjectiles();
 
+	void Reset();
 };
 

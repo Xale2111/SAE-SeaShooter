@@ -16,7 +16,7 @@ private:
 	Meteor trash_;
 	Meteor louis_;
 
-	float spawnDelay = 3;
+	float spawnDelay = 0;
 
 public:
 	void Load();
@@ -24,5 +24,7 @@ public:
 	void AddRemoveMeteor(Meteor& meteorToRemove);
 	void RemoveMeteors();
 	std::vector<Meteor>& GetAllMeteors();
+
+	void Reset();
 };
 

@@ -47,5 +47,7 @@ public:
 	void AddScore(int pointGained);
 	int GetScore();
 
+	void Reset(int defaultHeathPoints);
+
 };
 

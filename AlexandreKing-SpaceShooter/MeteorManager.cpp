@@ -92,3 +92,11 @@ std::vector<Meteor>& MeteorManager::GetAllMeteors()
 {
 	return allMeteors_;
 }
+
+void MeteorManager::Reset()
+{
+	allMeteors_.clear();
+	removeMeteors_.clear();
+	meteorIDCounter = 0;
+	spawnDelay = 0;
+}

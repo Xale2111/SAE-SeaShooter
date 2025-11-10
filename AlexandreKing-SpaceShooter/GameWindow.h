@@ -14,7 +14,7 @@ constexpr float winGameFrameRate = 60.f;
 constexpr int winGameWidth = 1920;
 constexpr int winGameHeight = 1080;
 
-const int playerHealth = 250;
+const int playerDefaultHealth = 250;
 
 class GameWindow
 {
@@ -24,7 +24,7 @@ private:
 
     EnemyManager enemyManager = EnemyManager(projectileManager, audioManager);
     MeteorManager meteorManager;
-    Player player = Player(playerHealth, 40, 0.2f, EntityType::kPlayer);
+    Player player = Player(playerDefaultHealth, 40, 0.2f, EntityType::kPlayer);
 
     UI ui;
 
@@ -32,10 +32,14 @@ private:
 
     bool isInGame = false;
 
-    RenderWindow mainWindow = RenderWindow(sf::VideoMode({ winGameWidth,winGameHeight }), "Sea Shooter");
+    RenderWindow mainWindow;
+
 public:
 	void Load();
+    void ResetGame();
     void Start();
 	void Play();
+
+    bool WindowIsOpen();
 };
 

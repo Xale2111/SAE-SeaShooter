@@ -163,3 +163,15 @@ int Player::GetScore()
 {
 	return score_;
 }
+
+void Player::Reset(int defaultHeathPoints)
+{
+	score_ = 0;
+	isShooting = false;
+	ResetInvicibility();
+	isInvicible = false;
+	SetAnimation(normalAnimation_, GetAnimationIndex());
+	bulletAmount = 1;
+	ResetHealthPoint(defaultHeathPoints);
+	
+}

@@ -1,25 +1,25 @@
 #include "GameWindow.h"
 
+void GameWindow::ResetGame()
+{
+    projectileManager.Reset();
+    player.Reset(playerDefaultHealth);
+    enemyManager.Reset();
+    meteorManager.Reset();
+}
+
 void GameWindow::Load()
 {
     audioManager.LoadAll();
     projectileManager.Load();
+    meteorManager.Load();
 
     enemyManager.SetAllWaves();
-
-    meteorManager.Load();
 
     player.Load(&projectileManager, &audioManager);
     player.SetCollider();
     player.DefineAll(&meteorManager, "assets/sprites/character/normal", 0.175f, "assets/sprites/character/invincible", 0.1f);
 
-    //Window
-    mainWindow.setVerticalSyncEnabled(true);
-    mainWindow.setFramerateLimit(winGameFrameRate);
-    mainWindow.setPosition({ 0,0 });
-    mainWindow.setMouseCursorVisible(false);
-
-    ui.Load(mainWindow, playerHealth);
     clock.stop();
 }
 
@@ -27,6 +27,15 @@ void GameWindow::Start()
 {
     if (!isInGame)
     {
+        //Window
+        mainWindow.create(sf::VideoMode({ winGameWidth,winGameHeight }), "Sea Shooter");
+        mainWindow.setVerticalSyncEnabled(true);
+        mainWindow.setFramerateLimit(winGameFrameRate);
+        mainWindow.setPosition({ 0,0 });
+        mainWindow.setMouseCursorVisible(false);
+
+        ui.Load(mainWindow, playerDefaultHealth);
+
         clock.reset();
         clock.start();
         isInGame = true;
@@ -56,6 +65,7 @@ void GameWindow::Play()
             if (event->is<sf::Event::Closed>())
             {
                 mainWindow.close();
+                isInGame = false;
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
@@ -145,12 +155,18 @@ void GameWindow::Play()
         ui.UpdateHealthBar(player.GetHealthPoints());
         mainWindow.draw(ui);
 
-        // Window Display
-        mainWindow.display();
-
         if (player.GetHealthPoints() <= 0)
         {
             isInGame = false;
+            mainWindow.close();
         }
+
+        // Window Display
+        mainWindow.display();
     }
+}
+
+bool GameWindow::WindowIsOpen()
+{
+    return mainWindow.isOpen();
 }

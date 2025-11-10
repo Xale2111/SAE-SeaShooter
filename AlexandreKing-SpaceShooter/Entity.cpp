@@ -68,3 +68,8 @@ int Entity::GetHealthPoints()
 {
 	return healthPoints_;
 }
+
+void Entity::ResetHealthPoint(int defaultHP)
+{
+	healthPoints_ = defaultHP;
+}

@@ -9,7 +9,8 @@ class Button : public sf::Drawable
 private:
 	sf::RectangleShape shape_;
 	std::optional<sf::Text> text_;
-	std::string textValue_;
+
+	sf::Texture* icon_ = nullptr;
 
 	sf::Color fillColor_;
 	sf::Color pressColor_;
@@ -30,14 +31,20 @@ public:
 	void HandleState();
 
 	bool HasBeenPressed();
+	void ResetPressState();
 
 	void SetText(std::string text);
 	void SetSize(sf::Vector2f size);
 	void SetFillColor(sf::Color color);
 	void SetHoverColor(sf::Color color);
 	void SetPressColor(sf::Color color);
-	void SetFontSize(int size);
 	void SetPosition(sf::Vector2f position);
+	void SetOutline(int size, sf::Color color);
+
+	void SetIcon(std::string path);
+
+	void SetFont(sf::Font& font,int size);
+	void SetFontColor(sf::Color color);
 
 	void SetActionCode(int action);
 	int GetActionCode();
