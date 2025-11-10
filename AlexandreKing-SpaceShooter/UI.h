@@ -4,25 +4,32 @@
 using namespace sf;
 
 const std::string fontPath = "assets/font/";
+const float CHAR_SIZE = 6.5f;
+const float HEALTH_BAR_ORIGIN_SIZE = 400.f;
+const float OFFSET_FROM_BOTTOM = 30.f;
 
 class UI : public sf::Drawable
 {
 private:
-	RectangleShape bigFrame_;
-	RectangleShape scoreFrame_;
+	std::optional<Text> scoreLabel_;
+	RectangleShape healthBar_;
+		
 
-	std::optional<Text>scoreLabel_;
-	std::optional<Text>score_;
-
-	RectangleShape lifeIcon_;
+	float scoreOriginPositionX_;
+	int defaultPlayerHealth;
 
 	Font font_;
+	const void ChangeScoreValue();
+
 
 protected:
 	void draw(RenderTarget& target, RenderStates states) const override;
 
 public:
-	void Load(RenderWindow& window);
+	void UpdateScorevalue(int playerScore);
+	void UpdateHealthBar(int playerHealth);
+
+	void Load(RenderWindow& window, int playerHealthAtStart);
 
 
 	

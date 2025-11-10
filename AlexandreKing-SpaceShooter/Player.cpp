@@ -16,13 +16,22 @@ void Player::DefineMeteorManager(MeteorManager* manager)
 
 void Player::UpgradeWithScore()
 {
-	if (score_ > 300)
+	
+	if (score_ > 1000)
 	{
-		bulletAmount = 3;
+		bulletAmount = 2;
 	}
-	if (score_ > 500)
+	if (score_ > 6000)
 	{
-		bulletAmount = 5;
+		bulletAmount = 4;
+	}
+	if (score_ > 20000)
+	{
+		bulletAmount = 6;
+	}
+	if (score_ > 40000)
+	{
+		bulletAmount = 7;
 	}
 }
 
@@ -47,19 +56,26 @@ void Player::Shoot(Time dt)
 	{
 		deltaTime = deltaTime.Zero;
 
-		if (bulletAmount >= 1)
+
+		if (bulletAmount == 1 || bulletAmount >=7)
 		{
 			//Center Laser
-			projectileManager_->AddProjectile({ getPosition().x+20, getPosition().y }, { 0,-1 }, type_, damage_);
-			projectileManager_->AddProjectile({ getPosition().x-20, getPosition().y }, { 0,-1 }, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x, getPosition().y }, { 0,-1 }, type_, damage_);
+
 		}
-		if (bulletAmount >= 3)
+		if (bulletAmount >= 2)
+		{
+			//Center Laser
+			projectileManager_->AddProjectile({ getPosition().x + 20, getPosition().y }, { 0,-1 }, type_, damage_);
+			projectileManager_->AddProjectile({ getPosition().x - 20, getPosition().y }, { 0,-1 }, type_, damage_);
+		}
+		if (bulletAmount >= 4)
 		{
 			//first side lasers
 			projectileManager_->AddProjectile({ getPosition().x+10, getPosition().y }, leftDir1, type_, damage_);
 			projectileManager_->AddProjectile({ getPosition().x-10, getPosition().y }, rightDir1, type_, damage_);
 		}
-		if (bulletAmount >= 5)
+		if (bulletAmount >= 6)
 		{
 			//second side lasers
 			projectileManager_->AddProjectile({ getPosition().x+10, getPosition().y }, leftDir2, type_, damage_);
@@ -141,4 +157,9 @@ void Player::AddScore(int pointGained)
 {
 	score_ += pointGained;
 	UpgradeWithScore();
+}
+
+int Player::GetScore()
+{
+	return score_;
 }

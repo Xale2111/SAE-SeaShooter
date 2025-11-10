@@ -25,7 +25,6 @@ void MeteorManager::SpawnMeteor(Time dt)
 		float speedRand = Random::Float(120, 180);
 		float scale = Random::Float(0.6f, 0.8f);
 
-
 		ColliderType collider;
 
 		if (rotationDirectionRand == 1)
@@ -33,7 +32,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 			rotationSpeedRand *= -1;
 		}
 
-		switch (meteorRand)
+		switch (meteorRand)	
 		{
 		case 0:
 			collider = ColliderType::kBox;
@@ -51,6 +50,7 @@ void MeteorManager::SpawnMeteor(Time dt)
 			collider = ColliderType::kCircle;
 			newMeteor = louis_;
 			scale *= 0.8f;
+			rotationSpeedRand = 0;
 			break;
 		default:
 			newMeteor = plasticBag_;

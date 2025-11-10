@@ -3,7 +3,7 @@
 #include <iostream>
 
 constexpr float winWidth = 1920;
-constexpr int winHeight = 1080;
+constexpr int winMenuHeight = 1080;
 
 //Easy wave, this can then be combined with the other ones to create a full game with different wave complexity 
 void EnemyManager::SetEnemyWaveEasy()

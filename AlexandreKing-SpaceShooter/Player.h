@@ -45,6 +45,7 @@ public:
 	void MakePlayerInvicible(Time deltaTime);
 
 	void AddScore(int pointGained);
+	int GetScore();
 
 };
 
