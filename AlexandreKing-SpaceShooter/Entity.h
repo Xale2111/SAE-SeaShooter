@@ -56,6 +56,7 @@ protected:
 	int GetAnimationIndex();
 	const Texture& GetAnimationTexture() const;
 
+	void SetHealthPoints(int newMaxHealth);
 	void ResetHealthPoint(int defaultHP);
 
 

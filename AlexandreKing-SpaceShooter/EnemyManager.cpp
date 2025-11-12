@@ -61,23 +61,26 @@ void EnemyManager::SetEnemyWaveEasy()
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0));
 
 	// Segment 11
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 15));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 15,true));
 }
 
 void EnemyManager::SetEnemyWaveMedium()
 {
 	//TODO: Define medium wave
+
 }
 
 void EnemyManager::SetEnemyWaveHard()
 {
 	//TODO: Define hard wave
+
 }
 
 //PRIVATE
 void EnemyManager::SetEnemyWaveHardcore()
 {
 	//TODO: Define hardcore wave
+
 }
 
 Vector2f EnemyManager::GetStartPositionFromEnum(EnemyStartPosition startPosition, int forceMiddleSpawnPosition)
@@ -165,17 +168,41 @@ void EnemyManager::SetAllWaves()
 
 void EnemyManager::Spawn(Time dt)
 {
+
+	//TODO : Add the check for the number of subwave left before starting next wave
 	//spawn the next wave segment if the defined delay is greater the current elapsed time
 	if (enemyWavePrediction.size() > 0 && currentWaveIndex_ < enemyWavePrediction.size())
 	{
-		waveDelay += dt;
-		if (waveDelay.asSeconds() >= enemyWavePrediction[currentWaveIndex_].GetDelay())
+		if (canContinueToNextWave)
 		{
-			int width = winWidth;
-			CreateFormation(enemyWavePrediction[currentWaveIndex_]);
-			waveDelay = milliseconds(0);
-			currentWaveIndex_++;
+			waveDelay += dt;
+			if (waveDelay.asSeconds() >= enemyWavePrediction[currentWaveIndex_].GetDelay())
+			{
+				CreateFormation(enemyWavePrediction[currentWaveIndex_]);
+				waveDelay = milliseconds(0);
+				if (enemyWavePrediction[currentWaveIndex_].IsLastSegment())
+				{
+					//While last enemy isn't dead, don't continue
+					canContinueToNextWave = false;
+				}
+				else
+				{
+					currentWaveIndex_++;
+				}
+			}
 		}
+		else
+		{
+			if (allEnemies_.size() <= 0)
+			{
+				canContinueToNextWave = true;
+				currentWaveIndex_++;
+			}
+		}
+	}
+	if (currentWaveIndex_ >= enemyWavePrediction.size())
+	{
+		currentWaveIndex_ = 0;
 	}
 }
 

@@ -15,14 +15,15 @@ private:
 	std::vector<WaveSegment> enemyWavePrediction;
 
 	//Create template of enemy (green-> easy, blue-> medium, red-> hard, Yellow-> HARDCORE)
-	Enemy easyEnemy_ = Enemy(50, 10, 0.4f, EntityType::kEasyEnemy, 1, 1, 50, { 0,0 }, 100, -1);
+	Enemy easyEnemy_ = Enemy(50, 10, 0.4f, EntityType::kEasyEnemy, 1, 1, 50000, { 0,0 }, 100, -1);
 	Enemy mediumEnemy_ = Enemy(220, 25, 1, EntityType::kMediumEnemy, 0.6, 1, 100, { 0,0 }, 110, -1);
 	Enemy hardEnemy_ = Enemy(500, 35, 0.35f, EntityType::kHardEnemy, 0.8, 3, 250, { 0,0 }, 125, -1);
-	Enemy hardcoreEnemy_ = Enemy(2500, 50, 1, EntityType::kHardcoreEnemy, 0.45, 5, 750, { 0,0 }, 80, -1);
+	Enemy hardcoreEnemy_ = Enemy(1500, 50, 1, EntityType::kHardcoreEnemy, 0.45, 5, 750, { 0,0 }, 80, -1);
 
 	uint64_t enemyID;
 
 	int currentWaveIndex_ = 0;
+	bool canContinueToNextWave = true;
 
 	Time waveDelay;
 
@@ -39,6 +40,7 @@ private:
 	void SetEnemyWaveMedium();
 	void SetEnemyWaveHard();
 	void SetEnemyWaveHardcore();
+
 	Vector2f GetStartPositionFromEnum(EnemyStartPosition startPosition, int forceMiddleSpawnPosition = -1);
 	Vector2f GetDirectionFromStartPosition(EnemyStartPosition startPosition);
 

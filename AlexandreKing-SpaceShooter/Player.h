@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "ProjectileManager.h"
 
+const int playerDefaultHealth = 250;
 
 class Player : public Entity
 {
@@ -13,6 +14,9 @@ private:
 
 	bool isShooting = false;
 	bool isInvicible = false;
+
+	const int MAX_HEALTH_BOOST = 5;
+	int healthBoostCounter = 0;
 
 	float invicibilityDelay = 3.f;
 	Time invicibilityTime;

@@ -1,11 +1,12 @@
 #include "WaveSegment.h"
 
-WaveSegment::WaveSegment(EntityType type, EnemyFormation formation, EnemyStartPosition strPosition, float delay)
+WaveSegment::WaveSegment(EntityType type, EnemyFormation formation, EnemyStartPosition strPosition, float delay,bool lastSegment)
 {
 	type_ = type;
 	formation_ = formation;
 	startPosition_ = strPosition;
 	delay_ = delay;
+	isLastOfSegmentOfTheWave = lastSegment;
 }
 
 EntityType WaveSegment::GetType()
@@ -26,4 +27,9 @@ EnemyStartPosition WaveSegment::GetStartPosition()
 float WaveSegment::GetDelay()
 {
 	return delay_;
+}
+
+bool WaveSegment::IsLastSegment()
+{
+	return isLastOfSegmentOfTheWave;
 }

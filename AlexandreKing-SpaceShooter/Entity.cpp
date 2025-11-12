@@ -37,6 +37,11 @@ const Texture& Entity::GetAnimationTexture() const
 	return animation_->GetTexture();
 }
 
+void Entity::SetHealthPoints(int newMaxHealth)
+{
+	healthPoints_ = newMaxHealth;
+}
+
 //Public
 Entity::Entity(int healthPoint, int damage, float spriteScale, EntityType type)
 {

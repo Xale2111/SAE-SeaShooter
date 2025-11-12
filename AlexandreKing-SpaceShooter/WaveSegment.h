@@ -22,13 +22,15 @@ private:
 	EnemyFormation formation_;
 	EnemyStartPosition startPosition_;
 	float delay_;
+	bool isLastOfSegmentOfTheWave = false;
 public:
-	WaveSegment(EntityType type, EnemyFormation formation, EnemyStartPosition strPosition, float delay);
+	WaveSegment(EntityType type, EnemyFormation formation, EnemyStartPosition strPosition, float delay, bool lastSegment = false);
 
 	EntityType GetType();
 	EnemyFormation GetFormation();
 	EnemyStartPosition GetStartPosition();
 	float GetDelay();
+	bool IsLastSegment();
 
 };
 

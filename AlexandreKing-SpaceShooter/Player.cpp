@@ -16,7 +16,6 @@ void Player::DefineMeteorManager(MeteorManager* manager)
 
 void Player::UpgradeWithScore()
 {
-	
 	if (score_ > 1000)
 	{
 		bulletAmount = 2;
@@ -33,6 +32,25 @@ void Player::UpgradeWithScore()
 	{
 		bulletAmount = 7;
 	}
+
+	/*
+	if (score_/10000*(healthBoostCounter+1) >= 1)
+	{
+		if (healthBoostCounter < MAX_HEALTH_BOOST)
+		{
+			SetHealthPoints(playerDefaultHealth + 100);
+		}
+		else
+		{
+			if (GetHealthPoints()+50 < )
+			{
+				
+			}
+			SetHealthPoints(GetHealthPoints() + 50);
+		}
+		healthBoostCounter++;
+	}*/
+
 }
 
 void Player::ResetInvicibility()

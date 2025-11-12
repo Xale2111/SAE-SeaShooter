@@ -4,7 +4,7 @@
 
 void UI::Load(RenderWindow& window, int playerHealthAtStart)
 {
-	defaultPlayerHealth = playerHealthAtStart;
+	playerMaxHealth = playerHealthAtStart;
 
 	if (font_.openFromFile(fontPath + "Road_Rage.ttf"))
 	{
@@ -13,9 +13,9 @@ void UI::Load(RenderWindow& window, int playerHealthAtStart)
 	
 	scoreLabel_ = sf::Text(font_);
 
-	scoreLabel_->setCharacterSize(18);
+	scoreLabel_->setCharacterSize(28);
 	scoreLabel_->setFillColor(sf::Color::White);
-	scoreOriginPositionX_ = window.getSize().x - 150.f;
+	scoreOriginPositionX_ = window.getSize().x - 220.f;
 	scoreLabel_->setPosition({ scoreOriginPositionX_, window.getSize().y-OFFSET_FROM_BOTTOM });
 	scoreLabel_->setString("Score : 0 pts");
 
@@ -32,7 +32,7 @@ void UI::UpdateScorevalue(int playerScore)
 
 void UI::UpdateHealthBar(int playerHealth)
 {
-	float newXSize = (HEALTH_BAR_ORIGIN_SIZE/defaultPlayerHealth)*playerHealth;
+	float newXSize = (HEALTH_BAR_ORIGIN_SIZE/playerMaxHealth)*playerHealth;
 	newXSize <= 0 ? healthBar_.setSize({ 0,25 }) :healthBar_.setSize({ newXSize,25 });
 	;
 	if (newXSize >= HEALTH_BAR_ORIGIN_SIZE*0.5f)
@@ -47,6 +47,11 @@ void UI::UpdateHealthBar(int playerHealth)
 	{
 		healthBar_.setFillColor(Color::Red);
 	}
+}
+
+void UI::UpdatePlayerMaxHealth(int newMaxHealth)
+{
+	playerMaxHealth = newMaxHealth;
 }
 
 void UI::draw(RenderTarget& target, RenderStates states) const
