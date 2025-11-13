@@ -170,3 +170,8 @@ bool GameWindow::WindowIsOpen()
 {
     return mainWindow.isOpen();
 }
+
+int GameWindow::GetFinalScore()
+{
+    return player.GetScore();
+}

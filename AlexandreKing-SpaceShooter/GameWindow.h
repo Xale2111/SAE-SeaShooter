@@ -39,5 +39,7 @@ public:
 	void Play();
 
     bool WindowIsOpen();
+
+    int GetFinalScore();
 };
 

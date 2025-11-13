@@ -29,9 +29,11 @@ private:
 	sf::Texture bgTexture_;
 	sf::RectangleShape backgroundImage_;
 
-	sf::Font buttonFont_;
+	sf::Font menuFont_;
 
 	std::optional<sf::Text> gameName_;
+	std::optional<sf::Text> lastScoreLabel_;
+	std::optional<sf::Text> lastScoreValue_;
 
 	Button playButton_;
 	Button quitButton_;
@@ -48,6 +50,7 @@ private:
 public:
 	void Load();
 	void CreateWindow();
+	void SetLastScore(int lastScoreValue);
 	int Display();
 };
 

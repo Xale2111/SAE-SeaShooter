@@ -21,6 +21,8 @@ int main()
     bool isRunning = true;
     int actionCode = 0;
 
+    int lastScore = 0;
+
     GameWindow gameWindow;
     gameWindow.Load();
 
@@ -33,6 +35,7 @@ int main()
 	    {
 	    case (int)ActionCodes::kDisplayMenu:
             menuWindow.CreateWindow();
+            menuWindow.SetLastScore(lastScore);
             actionCode = menuWindow.Display();
             break;
 	    case (int)ActionCodes::kPlay:
@@ -41,6 +44,7 @@ int main()
             if (!gameWindow.WindowIsOpen())
             {
                 actionCode = (int)ActionCodes::kDisplayMenu;
+                lastScore = gameWindow.GetFinalScore();
                 gameWindow.ResetGame();
             }
 
