@@ -4,6 +4,7 @@
 
 void UI::Load(RenderWindow& window, int playerHealthAtStart)
 {
+	windowSize_ = Vector2f(window.getSize().x,window.getSize().y);
 	playerMaxHealth = playerHealthAtStart;
 
 	if (font_.openFromFile(fontPath + "Road_Rage.ttf"))
@@ -15,19 +16,32 @@ void UI::Load(RenderWindow& window, int playerHealthAtStart)
 
 	scoreLabel_->setCharacterSize(28);
 	scoreLabel_->setFillColor(sf::Color::White);
-	scoreOriginPositionX_ = window.getSize().x - 220.f;
-	scoreLabel_->setPosition({ scoreOriginPositionX_, window.getSize().y-OFFSET_FROM_BOTTOM });
+	scoreOriginPositionX_ = windowSize_.x - 220.f;
+	scoreLabel_->setPosition({ scoreOriginPositionX_, windowSize_.y-OFFSET_FROM_BOTTOM });
 	scoreLabel_->setString("Score : 0 pts");
 
 	healthBar_.setSize({ HEALTH_BAR_ORIGIN_SIZE,25 });
 	healthBar_.setFillColor(Color::Green);
-	healthBar_.setPosition({20.f, window.getSize().y - OFFSET_FROM_BOTTOM });
+	healthBar_.setPosition({20.f, windowSize_.y - OFFSET_FROM_BOTTOM });
+
+	roundCounterLabel_ = sf::Text(font_);
+	roundCounterLabel_->setCharacterSize(100);
+	roundCounterLabel_->setFillColor(Color::Black);
+	roundCounterLabel_->setString("Round " + std::to_string(roundCounterValue_));
+	roundCounterLabel_->setPosition({ windowSize_.x / 2 - roundCounterLabel_->getGlobalBounds().size.x / 2, windowSize_.y / 2 - roundCounterLabel_->getGlobalBounds().size.y / 2});
 }
 
 void UI::UpdateScorevalue(int playerScore)
 {
 	scoreLabel_->setPosition({ scoreOriginPositionX_-(std::to_string(playerScore).size()*CHAR_SIZE),scoreLabel_->getPosition().y });
 	scoreLabel_->setString("Score : " + std::to_string(playerScore) + " pts");
+}
+void UI::NewRound()
+{
+	roundCounterValue_++;
+	newRound_ = newRound_.Zero;
+	roundCounterLabel_->setString("Round " + std::to_string(roundCounterValue_));
+	roundCounterLabel_->setPosition({ windowSize_.x / 2 - roundCounterLabel_->getGlobalBounds().size.x / 2, windowSize_.y / 2 - roundCounterLabel_->getGlobalBounds().size.y / 2 });
 }
 
 void UI::UpdateHealthBar(int playerHealth)
@@ -54,11 +68,38 @@ void UI::UpdatePlayerMaxHealth(int newMaxHealth)
 	playerMaxHealth = newMaxHealth;
 }
 
+void UI::StartingNewRound(bool isANewRoundStarting)
+{
+	if (isANewRoundStarting)
+	{
+		NewRound();
+	}
+}
+
+void UI::UpdateNewRoundText(Time dt)
+{
+	newRound_ += dt;
+	if (newRound_.asSeconds() <= 3.f)
+	{
+		displayNewRoundText = true;
+	}
+	else
+	{
+		displayNewRoundText = false;
+	}
+	
+}
+
+
 void UI::draw(RenderTarget& target, RenderStates states) const
 {
 	if (scoreLabel_.has_value())
 	{
 		target.draw(scoreLabel_.value());
+	}
+	if (roundCounterLabel_.has_value() && displayNewRoundText)
+	{
+		target.draw(roundCounterLabel_.value());
 	}
 	target.draw(healthBar_);
 }

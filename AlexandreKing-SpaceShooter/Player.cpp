@@ -24,11 +24,11 @@ void Player::UpgradeWithScore()
 	{
 		bulletAmount = 4;
 	}
-	if (score_ > 20000)
+	if (score_ > 30000)
 	{
 		bulletAmount = 6;
 	}
-	if (score_ > 40000)
+	if (score_ > 75000)
 	{
 		bulletAmount = 7;
 	}
@@ -169,6 +169,13 @@ void Player::MakePlayerInvicible(Time deltaTime)
 		isInvicible = false;
 	}
 	invicibilityTime += deltaTime;
+}
+
+void Player::UpdateAnimation(Time dt)
+{
+	normalAnimation_.UpdateIdx(dt);
+	invincibleAnimation_.UpdateIdx(dt);
+
 }
 
 void Player::AddScore(int pointGained)

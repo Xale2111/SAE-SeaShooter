@@ -13,14 +13,20 @@ class UI : public sf::Drawable
 private:
 	std::optional<Text> scoreLabel_;
 	RectangleShape healthBar_;
+	std::optional<Text> roundCounterLabel_;
 		
+	int roundCounterValue_ = 1;
+	Vector2f windowSize_;
 
 	float scoreOriginPositionX_;
 	int playerMaxHealth;
 
+	Time newRound_;
+	bool displayNewRoundText = false;
+
 	Font font_;
 	const void ChangeScoreValue();
-
+	void NewRound();
 
 protected:
 	void draw(RenderTarget& target, RenderStates states) const override;
@@ -30,8 +36,9 @@ public:
 	void UpdateHealthBar(int playerHealth);
 	void UpdatePlayerMaxHealth(int newMaxHealth);
 
+	void StartingNewRound(bool isANewRoundStarting);
+	void UpdateNewRoundText(Time dt);
+
 	void Load(RenderWindow& window, int playerHealthAtStart);
 
-
-	
 };

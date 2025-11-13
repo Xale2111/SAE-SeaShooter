@@ -130,6 +130,7 @@ void GameWindow::Play()
 
         //third layer
         player.AnimationUpdate(deltaTime);
+        player.UpdateAnimation(deltaTime);
         player.DetectCollision();
         player.MakePlayerInvicible(deltaTime);
         mainWindow.draw(player);
@@ -151,6 +152,8 @@ void GameWindow::Play()
         //Display UI
         ui.UpdateScorevalue(player.GetScore());
         ui.UpdateHealthBar(player.GetHealthPoints());
+        ui.StartingNewRound(enemyManager.IsStartingNewRound());
+        ui.UpdateNewRoundText(deltaTime);
         mainWindow.draw(ui);
 
         if (player.GetHealthPoints() <= 0)

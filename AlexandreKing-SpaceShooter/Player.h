@@ -35,7 +35,6 @@ private:
 
 	void UpgradeWithScore();
 
-
 	void ResetInvicibility();
 
 public:
@@ -47,6 +46,7 @@ public:
 	void DetectCollision() override;
 
 	void MakePlayerInvicible(Time deltaTime);
+	void UpdateAnimation(Time deltaTime);
 
 	void AddScore(int pointGained);
 	int GetScore();

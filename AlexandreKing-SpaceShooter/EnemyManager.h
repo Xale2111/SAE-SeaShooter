@@ -21,7 +21,8 @@ private:
 	uint64_t enemyID;
 
 	int currentWaveIndex_ = 0;
-	bool canContinueToNextWave = true;
+	bool canContinueToNextWave_ = true;
+	bool startingNewRound_ = false;
 
 	Time waveDelay;
 
@@ -55,6 +56,8 @@ public:
 	void RemoveEnemies();
 
 	std::vector<Enemy>& GetAllEnemies();
+
+	bool IsStartingNewRound();
 
 	void Reset();
 

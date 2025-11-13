@@ -252,8 +252,9 @@ void EnemyManager::Spawn(Time dt)
 	//spawn the next wave segment if the defined delay is greater the current elapsed time
 	if (enemyWavePrediction.size() > 0 && currentWaveIndex_ < enemyWavePrediction.size())
 	{
-		if (canContinueToNextWave)
+		if (canContinueToNextWave_)
 		{
+			startingNewRound_ = false;
 			waveDelay += dt;
 			if (waveDelay.asSeconds() >= enemyWavePrediction[currentWaveIndex_].GetDelay())
 			{
@@ -262,7 +263,7 @@ void EnemyManager::Spawn(Time dt)
 				if (enemyWavePrediction[currentWaveIndex_].IsLastSegment())
 				{
 					//While last enemy isn't dead, don't continue
-					canContinueToNextWave = false;
+					canContinueToNextWave_ = false;
 				}
 				else
 				{
@@ -274,7 +275,8 @@ void EnemyManager::Spawn(Time dt)
 		{
 			if (allEnemies_.size() <= 0)
 			{
-				canContinueToNextWave = true;
+				startingNewRound_ = true;
+				canContinueToNextWave_ = true;
 				currentWaveIndex_++;
 			}
 		}
@@ -372,6 +374,11 @@ void EnemyManager::RemoveEnemies()
 std::vector<Enemy>& EnemyManager::GetAllEnemies()
 {
 	return allEnemies_;
+}
+
+bool EnemyManager::IsStartingNewRound()
+{
+	return startingNewRound_;
 }
 
 void EnemyManager::Reset()
