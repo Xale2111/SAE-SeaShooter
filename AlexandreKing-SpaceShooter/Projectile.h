@@ -4,12 +4,10 @@
 #include "Animation.h"
 #include "BoxCollider.h"
 #include "ObjectState.h"
-
 #include "ObjectLayer.h"
 
-
-
 using namespace sf;
+
 class Projectile : public Transformable, public Drawable
 {
 private:
@@ -33,7 +31,7 @@ protected:
 	void draw(RenderTarget& target, RenderStates states) const override;
 
 public:
-	void Load(std::string spritePath, ObjectLayer layer, float speed = 350);
+	void Load(ObjectLayer layer, TextureManager::ID textureID, float speed = 350);
 	void SetDirection(Vector2f newDirection);
 	void SetPosition(Vector2f newPosition);
 	void CenterOrigin();
@@ -43,7 +41,6 @@ public:
 	int GetDamage();
 	Vector2f GetPosition();
 
-	void AnimationUpdate();
 	ObjectState Move(Time deltaTime);
 
 	void SetID(uint64_t id);

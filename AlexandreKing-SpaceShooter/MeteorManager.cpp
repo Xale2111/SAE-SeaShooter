@@ -6,11 +6,12 @@
 
 void MeteorManager::Load()
 {
-	plasticBag_.Load(METEOR_SPRITES_PATH + "/bag");
-	plasticBottle_.Load(METEOR_SPRITES_PATH + "/bottle");
-	trash_.Load(METEOR_SPRITES_PATH + "/trash");
-	louis_.Load(METEOR_SPRITES_PATH + "/louis");
+	plasticBag_.Load(TextureManager::ID::kPlasticBag);
+	plasticBottle_.Load(TextureManager::ID::kPlasticBottle);
+	trash_.Load(TextureManager::ID::kTrash);
+	louis_.Load(TextureManager::ID::kTrash);
 }
+
 
 void MeteorManager::SpawnMeteor(Time dt)
 {

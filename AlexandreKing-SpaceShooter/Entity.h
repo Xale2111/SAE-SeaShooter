@@ -27,9 +27,9 @@ private:
 	int healthPoints_;
 	sf::Vector2f textureSize_;
 
-	Animation* animation_;
+	Animation animation_;
 
-
+	int currentAnimationFrame_;
 protected:
 
 	Vector2f leftDir1 = { cos(angleL1) ,-sin(angleL1) };
@@ -63,7 +63,7 @@ protected:
 public:
 	Entity(int healthPoint, int damage, float spriteScale, EntityType type);
 	void Load(ProjectileManager* projectileManager, AudioManager* audioManager);
-	void AnimationUpdate();
+	void AnimationUpdate(Time dt);
 	void TakeDamage(int damage);
 	int GetHealthPoints();
 	virtual void DetectCollision() = 0;

@@ -1,9 +1,9 @@
 #include "Projectile.h"
 #include <corecrt_math_defines.h>
 
-void Projectile::Load(std::string spritePath, ObjectLayer layer,float speed)
+void Projectile::Load(ObjectLayer layer, TextureManager::ID textureID,float speed)
 {
-	animation_.Load(spritePath, 0.05f);
+	animation_.Load(0.05f, textureID);
 	CenterOrigin();
 	speed_ = speed;
 	layer_ = layer;
@@ -31,7 +31,6 @@ void Projectile::CenterOrigin()
 		static_cast<float>(animation_.GetTexture().getSize().y) / 2.f
 	};
 	setOrigin(newOrigin);
-
 }
 
 void Projectile::SetRotation(bool isPlayerProjectile)
@@ -64,13 +63,9 @@ Vector2f Projectile::GetPosition()
 	return position_;
 }
 
-void Projectile::AnimationUpdate()
-{
-	animation_.Update();
-}
-
 ObjectState Projectile::Move(Time dt)
 {
+	animation_.UpdateIdx(dt);
 
 	if (state_ != ObjectState::kDestroyed)
 	{

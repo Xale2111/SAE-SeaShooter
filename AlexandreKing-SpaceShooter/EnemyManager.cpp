@@ -10,25 +10,25 @@ void EnemyManager::SetEnemyWaveEasy()
 {
 	//Define the wave
 	// Segment 1
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 1));
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 1));
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 1));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 1.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 1.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 1.f));
 
 	// Segment 2
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 8));
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kDuo, EnemyStartPosition::kLeft, 2));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 8.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kDuo, EnemyStartPosition::kLeft, 2.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kDuo, EnemyStartPosition::kRight, 0));
 
 	// Segment 3
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 7.5));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 7.5f));
 
 	// Segment 4
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 6));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 6.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 0));
 
 	// Segment 5
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 5));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 5.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 0));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0));
 
@@ -39,35 +39,117 @@ void EnemyManager::SetEnemyWaveEasy()
 
 	// Segment 7
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 7.5f));
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kLeft, 1));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kLeft, 1.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kRight, 0));
 
 	// Segment 8
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 15));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 10.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
 
 	// Segment 9
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 10));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 10.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 0));
 
 	// Segment 10
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 20));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 15.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kDuo, EnemyStartPosition::kLeft, 0));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kDuo, EnemyStartPosition::kRight, 0));
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 10));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 10.f));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 0));
 	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0));
 
 	// Segment 11
-	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 15,true));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 15.f,true));
 }
 
 void EnemyManager::SetEnemyWaveMedium()
 {
-	//TODO: Define medium wave
+	//Segment 1
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 5.f));
 
+	//Segment 2
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 5.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kRight, 0));
+
+	//Segment 3
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 10.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+
+	//Segment 4
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 15.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 1.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 1.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+
+	//Segment 5
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 15.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 1.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+
+	//Segment 6
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 10.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 1.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 1.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 1.f));
+
+	//Segment 7
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 12.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kRight, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 1.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kLeft, 0));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kRight, 0));
+
+	//Segment 8
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 12.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 0.5f));
+
+	//Segment 9
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 15.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kEasyEnemy, EnemyFormation::kBigTriangle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 0.5f));
+
+	//Segment 10
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 15.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0.5f));
+
+	//Segment 11
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 12.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kLeft, 0.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kMediumEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kRight, 0.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kMiddle, 0.5f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kLeft, 0.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kDuo, EnemyStartPosition::kRight, 0.f));
+
+	//Segment 12
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardcoreEnemy, EnemyFormation::kTriangle, EnemyStartPosition::kMiddle, 25.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kLeft, 0.f));
+	enemyWavePrediction.emplace_back(WaveSegment(EntityType::kHardEnemy, EnemyFormation::kSingle, EnemyStartPosition::kRight, 0.f, true));
 }
 
 void EnemyManager::SetEnemyWaveHard()
@@ -99,7 +181,6 @@ Vector2f EnemyManager::GetStartPositionFromEnum(EnemyStartPosition startPosition
 		{
 			randMiddle = forceMiddleSpawnPosition;
 		}
-		std::cout << randMiddle << std::endl;
 		startCoordinates = possibleStartPositions[randMiddle];
 	}
 	break;
@@ -149,13 +230,13 @@ Vector2f EnemyManager::GetDirectionFromStartPosition(EnemyStartPosition startPos
 EnemyManager::EnemyManager(ProjectileManager& projectile_manager, AudioManager& audio_manager) : enemyID(0)
 {
 	easyEnemy_.Load(&projectile_manager, &audio_manager);
-	easyEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "easy/", 0.2f);
+	easyEnemy_.DefineAnimation(0.2f, TextureManager::ID::kEasyEnemy);
 	mediumEnemy_.Load(&projectile_manager, &audio_manager);
-	mediumEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "medium/", 0.2f);
+	mediumEnemy_.DefineAnimation(0.2f, TextureManager::ID::kMediumEnemy);
 	hardEnemy_.Load(&projectile_manager, &audio_manager);
-	hardEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "hard/", 0.2f);
+	hardEnemy_.DefineAnimation(0.15f, TextureManager::ID::kHardEnemy);
 	hardcoreEnemy_.Load(&projectile_manager, &audio_manager);
-	hardcoreEnemy_.DefineAnimation(ENEMIES_SPRITES_PATH + "hardcore/", 0.2);
+	hardcoreEnemy_.DefineAnimation(0.2f, TextureManager::ID::kHardcoreEnemy);
 }
 
 void EnemyManager::SetAllWaves()
@@ -168,8 +249,6 @@ void EnemyManager::SetAllWaves()
 
 void EnemyManager::Spawn(Time dt)
 {
-
-	//TODO : Add the check for the number of subwave left before starting next wave
 	//spawn the next wave segment if the defined delay is greater the current elapsed time
 	if (enemyWavePrediction.size() > 0 && currentWaveIndex_ < enemyWavePrediction.size())
 	{
@@ -203,10 +282,10 @@ void EnemyManager::Spawn(Time dt)
 	if (currentWaveIndex_ >= enemyWavePrediction.size())
 	{
 		currentWaveIndex_ = 0;
+		//TODO (OPTIONNAL): Upgrade enemies when restarting. (set max health of each enemy to 125% of current maxHealth)  
 	}
 }
 
-//TODO : Set offset based on shark size
 void EnemyManager::CreateFormation(WaveSegment wave)
 {
 	int middleSpawnPosition = rand() % 3 + 1;

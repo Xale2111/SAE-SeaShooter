@@ -25,7 +25,7 @@ private:
 	void Destroy();
 public:
 	Enemy(int healthPoint, int damage, float spriteScale,EntityType type,float shootingDelay, int shootingAmount, int pointValue, Vector2f direction, float speed, uint64_t ID);
-	void DefineAnimation(std::string spritePath, float animationSpeed);
+	void DefineAnimation(float animationSpeed, TextureManager::ID textureID);
 	void Shoot();
 	void Move();
 	void SetPosition(Vector2f newPosition);

@@ -41,14 +41,13 @@ private:
 	Collider hitbox_;
 
 public:
-	void Load(std::string spritePath);
+	void Load(TextureManager::ID textureID, float speed = 1);
 	void SetDirection(Vector2f newDirection);
 	void SetRotationDegrees(float rtDegrees);
 	void IncreaseRotation();
 	void SetSpeed(float newSpeed);
 	void SetPosition(Vector2f newPosition);
 	void SetMeteorSize(float newScale);
-	void AnimationUpdate();
 	ObjectState Move(Time deltaTime);
 	void SetId(uint64_t ID);
 	uint64_t GetId();

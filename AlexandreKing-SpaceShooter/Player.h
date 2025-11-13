@@ -40,7 +40,7 @@ private:
 
 public:
 	using Entity::Entity;
-	void DefineAll(MeteorManager* manager, std::string normalSpritesPath, float normalSpeed, std::string invincibleSpritesPath, float invincibleSpeed);
+	void DefineAll(MeteorManager* manager, float normalSpeed, float invincibleSpeed);
 	void Shoot(Time deltaTime);
 	void SetIsShooting(bool shooting);
 	void SetCollider(float rotation = 0) override;

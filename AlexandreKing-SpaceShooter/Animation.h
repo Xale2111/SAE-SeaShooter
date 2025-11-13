@@ -4,32 +4,29 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 
+#include "TextureManager.h"
+
+using namespace TextureManager;
+
 class Animation
 {
 private:
-	std::vector<sf::Texture> textures_;
 	int idxTextures_ = 0;
 
-	sf::Clock clock_;
+	TextureManager::ID textureID_  = TextureManager::ID::kNone;
+
 	sf::Time totalElapsed_;
 	float animationSpeed_;
-
-	bool isPlaying_ = true;
 
 	sf::Texture defaultTexture_;
 
 public:
-	bool Load(std::string path, float animSpeed);
-	void UpdateIdx();
-	void Play();
-	void Pause();
+	void Load(float animSpeed, TextureManager::ID textureID);
+	void UpdateIdx(sf::Time dt);
 
 	const sf::Texture& GetTexture() const;
 
 	void SetIndex(int index);
 	int GetIndex();
-
-	const void Update();
-	const bool IsPlaying();
 
 };

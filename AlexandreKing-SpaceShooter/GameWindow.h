@@ -10,7 +10,7 @@
 #include "ProjectileManager.h"
 #include "UI.h"
 
-constexpr float winGameFrameRate = 60.f;
+constexpr float winGameFrameRate = 30.f;
 constexpr int winGameWidth = 1920;
 constexpr int winGameHeight = 1080;
 

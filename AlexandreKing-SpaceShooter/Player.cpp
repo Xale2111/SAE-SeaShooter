@@ -58,12 +58,12 @@ void Player::ResetInvicibility()
 	invicibilityTime = invicibilityTime.Zero;
 }
 
-void Player::DefineAll(MeteorManager* manager, std::string normalSpritesPath, float normalSpeed, std::string invincibleSpritesPath, float invincibleSpeed)
+void Player::DefineAll(MeteorManager* manager, float normalSpeed, float invincibleSpeed)
 {
 	DefineLayer();
 	DefineMeteorManager(manager);
-	normalAnimation_.Load(normalSpritesPath, normalSpeed);
-	invincibleAnimation_.Load(invincibleSpritesPath, invincibleSpeed);
+	normalAnimation_.Load(normalSpeed,TextureManager::ID::kTurtleNormal);
+	invincibleAnimation_.Load(invincibleSpeed, TextureManager::ID::kTurtleInvincible);
 	SetAnimation(normalAnimation_, 0);
 	invicibilityTime += seconds(5);
 }

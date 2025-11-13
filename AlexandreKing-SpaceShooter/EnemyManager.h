@@ -3,8 +3,6 @@
 #include "Player.h"
 #include "WaveSegment.h"
 
-const std::string ENEMIES_SPRITES_PATH = "assets/sprites/enemy/";
-
 class EnemyManager
 {
 private:

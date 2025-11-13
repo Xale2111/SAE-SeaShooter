@@ -1,8 +1,6 @@
 #pragma once
 #include "Meteor.h"
 
-const std::string METEOR_SPRITES_PATH = "assets/sprites/meteor";
-
 class MeteorManager
 {
 private:

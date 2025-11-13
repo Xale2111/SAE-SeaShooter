@@ -2,7 +2,6 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
-
 #include "BoxCollider.h"
 
 void Enemy::SetRotation(Vector2f direction)
@@ -29,9 +28,9 @@ Enemy::Enemy(int healthPoint, int damage, float spriteScale, EntityType type, fl
 	layer_ = ObjectLayer::kEnemy;
 }
 
-void Enemy::DefineAnimation(std::string spritePath, float animationSpeed)
+void Enemy::DefineAnimation(float animationSpeed, TextureManager::ID textureID)
 {
-	normalAnimation_.Load(spritePath, animationSpeed);
+	normalAnimation_.Load(animationSpeed, textureID);
 	SetAnimation(normalAnimation_, 0);
 }
 

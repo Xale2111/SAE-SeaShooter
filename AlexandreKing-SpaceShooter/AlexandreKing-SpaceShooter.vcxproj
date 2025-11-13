@@ -146,6 +146,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="WaveSegment.cpp" />
   </ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="ObjectLayer.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WaveSegment.h" />
   </ItemGroup>

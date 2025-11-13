@@ -2,9 +2,9 @@
 
 void ProjectileManager::Load()
 {
-	playerProjectile_.Load(PROJECTILE_SPRITES_PATH + "player", ObjectLayer::kPlayerProjectile);
-	enemyProjectile_.Load(PROJECTILE_SPRITES_PATH + "enemy/all",ObjectLayer::kEnemyProjectile);
-	hardEnemyProjectile_.Load(PROJECTILE_SPRITES_PATH+"enemy/hard", ObjectLayer::kEnemyProjectile);
+	playerProjectile_.Load(ObjectLayer::kPlayerProjectile,TextureManager::ID::kPlayerProjectile);
+	enemyProjectile_.Load(ObjectLayer::kEnemyProjectile, TextureManager::ID::kEasyMediumProjectile);
+	hardEnemyProjectile_.Load(ObjectLayer::kEnemyProjectile, TextureManager::ID::kHardHardcoreProjectile);
 }
 
 

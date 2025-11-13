@@ -3,9 +3,9 @@
 #include <iostream>
 
 
-void Meteor::Load(std::string spritePath)
+void Meteor::Load(TextureManager::ID textureID, float speed)
 {
-	animation_.Load(spritePath,1);
+	animation_.Load(speed, textureID);
 	setOrigin({ static_cast<float>(animation_.GetTexture().getSize().x / 2), static_cast<float>(animation_.GetTexture().getSize().y / 2) });
 	layer_ = ObjectLayer::kMeteor;
 }
@@ -40,13 +40,11 @@ void Meteor::SetMeteorSize(float newScale)
 	scale_ = { newScale,newScale };
 }
 
-void Meteor::AnimationUpdate()
-{
-	animation_.Update();
-}
-
 ObjectState Meteor::Move(Time deltaTime)
 {
+	animation_.UpdateIdx(deltaTime);
+
+
 	if (direction_.length() > 0 && state_ != ObjectState::kDestroyed)
 	{
 		state_ = ObjectState::kMoving;

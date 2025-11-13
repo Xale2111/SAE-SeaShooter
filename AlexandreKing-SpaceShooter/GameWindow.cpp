@@ -18,7 +18,7 @@ void GameWindow::Load()
 
     player.Load(&projectileManager, &audioManager);
     player.SetCollider();
-    player.DefineAll(&meteorManager, "assets/sprites/character/normal", 0.175f, "assets/sprites/character/invincible", 0.1f);
+    player.DefineAll(&meteorManager, 0.175f, 0.1f);
 
     clock.stop();
 }
@@ -100,7 +100,6 @@ void GameWindow::Play()
         //draw projectiles
         for (auto& projectile : projectileManager.GetAllProjectiles())
         {
-            projectile.AnimationUpdate();
             mainWindow.draw(projectile);
             if (projectile.Move(deltaTime) == ObjectState::kDestroyed)
             {
@@ -114,7 +113,7 @@ void GameWindow::Play()
         for (auto& enemy : enemyManager.GetAllEnemies())
         {
             enemy.SetDeltaTime(deltaTime);
-            enemy.AnimationUpdate();
+            enemy.AnimationUpdate(deltaTime);
             enemy.Move();
             mainWindow.draw(enemy);
             enemy.Shoot();
@@ -130,7 +129,7 @@ void GameWindow::Play()
         enemyManager.RemoveEnemies();
 
         //third layer
-        player.AnimationUpdate();
+        player.AnimationUpdate(deltaTime);
         player.DetectCollision();
         player.MakePlayerInvicible(deltaTime);
         mainWindow.draw(player);
@@ -139,7 +138,6 @@ void GameWindow::Play()
         //Draw plastic bags
         for (auto& meteor : meteorManager.GetAllMeteors())
         {
-            meteor.AnimationUpdate();
             mainWindow.draw(meteor);
             meteor.IncreaseRotation();
 

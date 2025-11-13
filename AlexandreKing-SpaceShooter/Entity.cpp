@@ -4,7 +4,7 @@
 //Protected
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	sf::Texture texture = animation_->GetTexture();
+	sf::Texture texture = animation_.GetTexture();
 	sf::Sprite sprite(texture);
 	sprite.setOrigin({ static_cast<float>(texture.getSize().x / 2), static_cast<float>(texture.getSize().y / 2) });
 	sprite.setScale({ spriteScale_,spriteScale_ });
@@ -22,19 +22,19 @@ Vector2f Entity::GetTextureSize()
 
 void Entity::SetAnimation(Animation& newAnimation, int textureIndex)
 {
-	animation_ = &newAnimation;
-	animation_->SetIndex(textureIndex);
+	animation_ = newAnimation;
+	animation_.SetIndex(textureIndex);
 }
 
 int Entity::GetAnimationIndex()
 {
-	return  animation_->GetIndex();
+	return  animation_.GetIndex();
 }
 
 
 const Texture& Entity::GetAnimationTexture() const
 {
-	return animation_->GetTexture();
+	return animation_.GetTexture();
 }
 
 void Entity::SetHealthPoints(int newMaxHealth)
@@ -58,10 +58,10 @@ void Entity::Load(ProjectileManager* projectileManager, AudioManager* audioManag
 	audioManager_ = audioManager;
 }
 
-void Entity::AnimationUpdate()
+void Entity::AnimationUpdate(Time dt)
 {
-	animation_->Update();
-	textureSize_ = Vector2f(animation_->GetTexture().getSize().x, animation_->GetTexture().getSize().y);
+	animation_.UpdateIdx(dt);
+	textureSize_ = Vector2f(animation_.GetTexture().getSize().x, animation_.GetTexture().getSize().y);
 }
 
 void Entity::TakeDamage(int damage)
