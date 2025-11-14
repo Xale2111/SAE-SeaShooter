@@ -34,7 +34,6 @@ private:
 	{ 2020.f,  -100.f }   // kRight
 	};
 
-
 	void SetEnemyWaveEasy();
 	void SetEnemyWaveMedium();
 	void SetEnemyWaveHard();

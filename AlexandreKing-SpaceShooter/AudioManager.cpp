@@ -60,6 +60,7 @@ void AudioManager::SetDefaultBackgroundMusic()
 		currentBackgroundMusic_ = allMusics[0];
 		currentBackgroundMusic_->setVolume(50);
 		currentBackgroundMusic_->play();
+		currentBackgroundMusic_->setLooping(true);
 	}
 }
 

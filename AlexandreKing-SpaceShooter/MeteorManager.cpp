@@ -9,7 +9,7 @@ void MeteorManager::Load()
 	plasticBag_.Load(TextureManager::ID::kPlasticBag);
 	plasticBottle_.Load(TextureManager::ID::kPlasticBottle);
 	trash_.Load(TextureManager::ID::kTrash);
-	louis_.Load(TextureManager::ID::kTrash);
+	louis_.Load(TextureManager::ID::kLouis);
 }
 
 
